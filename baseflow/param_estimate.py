@@ -4,6 +4,22 @@ from baseflow.utils import moving_average, multi_arange
 
 
 def recession_coefficient(Q, strict):
+    """
+    Calculates the recession coefficient `K` from the given discharge `Q` and a boolean mask `strict` indicating which values to use.
+    
+    The recession coefficient `K` is calculated as follows:
+    1. Extract the middle values of `Q` (`cQ`) and the centered finite difference of `Q` (`dQ`) using the `strict` mask.
+    2. Sort `dQ / cQ` in descending order and take the value at the 5th percentile.
+    3. Calculate `K` as the negative ratio of `cQ` to `dQ` at the selected index.
+    4. Return the exponential of `-1 / K` as the final recession coefficient.
+    
+    Args:
+        Q (numpy.ndarray): Array of discharge values.
+        strict (numpy.ndarray): Boolean mask indicating which values of `Q` to use.
+    
+    Returns:
+        float: The calculated recession coefficient.
+    """
     cQ, dQ = Q[1:-1], (Q[2:] - Q[:-2]) / 2
     cQ, dQ = cQ[strict[1:-1]], dQ[strict[1:-1]]
 
@@ -13,6 +29,19 @@ def recession_coefficient(Q, strict):
 
 
 def param_calibrate(param_range, method, Q, b_LH, a):
+    """
+    Calibrates the parameters for a baseflow estimation method.
+    
+    Args:
+        param_range (numpy.ndarray): The range of parameter values to test.
+        method (callable): The baseflow estimation method to use.
+        Q (numpy.ndarray): The discharge values.
+        b_LH (numpy.ndarray): The low-flow baseflow values.
+        a (float): The parameter for the baseflow estimation method.
+    
+    Returns:
+        float: The optimal parameter value from the given range.
+    """
     idx_rec = recession_period(Q)
     idx_oth = np.full(Q.shape[0], True)
     idx_oth[idx_rec] = False
@@ -21,6 +50,21 @@ def param_calibrate(param_range, method, Q, b_LH, a):
 
 @njit(parallel=True)
 def param_calibrate_jit(param_range, method, Q, b_LH, a, idx_rec, idx_oth):
+    """
+    Calibrates the parameters for a baseflow estimation method using the Numba-accelerated `param_calibrate_jit` function.
+    
+    The function takes in the range of parameter values to test, the baseflow estimation method, the discharge values, the low-flow baseflow values, and the parameter for the baseflow estimation method. It then calculates the recession period indices and other indices, and uses the `param_calibrate_jit` function to find the optimal parameter value from the given range.
+    
+    Args:
+        param_range (numpy.ndarray): The range of parameter values to test.
+        method (callable): The baseflow estimation method to use.
+        Q (numpy.ndarray): The discharge values.
+        b_LH (numpy.ndarray): The low-flow baseflow values.
+        a (float): The parameter for the baseflow estimation method.
+    
+    Returns:
+        float: The optimal parameter value from the given range.
+    """
     logQ = np.log1p(Q)
     loss = np.zeros(param_range.shape)
     for i in prange(param_range.shape[0]):
@@ -45,6 +89,17 @@ def param_calibrate_jit(param_range, method, Q, b_LH, a, idx_rec, idx_oth):
 
 
 def recession_period(Q):
+    """
+    Identifies the recession periods in the discharge time series.
+    
+    The function takes the discharge time series `Q` as input and returns the indices of the beginning and end of the recession periods. The recession periods are identified by finding the local maxima in the 3-point moving average of the discharge time series. The function keeps only the recession periods that are at least 10 time steps long, and trims the beginning of each recession period by 60% of the recession period duration.
+    
+    Args:
+        Q (numpy.ndarray): The discharge time series.
+    
+    Returns:
+        numpy.ndarray: The indices of the beginning and end of the recession periods.
+    """
     idx_dec = np.zeros(Q.shape[0] - 1, dtype=np.int64)
     Q_ave = moving_average(Q, 3)
     idx_dec[1:-1] = (Q_ave[:-1] - Q_ave[1:]) > 0
@@ -59,6 +114,20 @@ def recession_period(Q):
 
 
 def maxmium_BFI(Q, b_LH, a, date=None):
+    """
+    Calculates the maximum baseflow index (BFI) for a given discharge time series.
+    
+    The function takes the discharge time series `Q`, the baseflow time series `b_LH`, and the recession coefficient `a` as input. It calculates the annual baseflow and discharge, and then computes the maximum BFI. If the maximum BFI is greater than 0.9, the function returns the ratio of the total baseflow to the total discharge instead.
+    
+    Args:
+        Q (numpy.ndarray): The discharge time series.
+        b_LH (numpy.ndarray): The baseflow time series.
+        a (float): The recession coefficient.
+        date (datetime.datetime, optional): The date associated with the discharge time series. If provided, the function will compute the annual BFI for each year.
+    
+    Returns:
+        float: The maximum baseflow index.
+    """
     b = Backward(Q, b_LH, a)
 
     if date is None:
@@ -81,6 +150,19 @@ def maxmium_BFI(Q, b_LH, a, date=None):
 
 @njit
 def Backward(Q, b_LH, a):
+    """
+    Calculates the baseflow time series `b` from the discharge time series `Q` and the baseflow time series `b_LH` using a backward recursive approach.
+    
+    The function iterates through the discharge time series in reverse order, calculating the baseflow at each time step based on the baseflow at the next time step and the recession coefficient `a`. If the calculated baseflow exceeds the discharge at the current time step, the baseflow is set to the discharge.
+    
+    Args:
+        Q (numpy.ndarray): The discharge time series.
+        b_LH (numpy.ndarray): The baseflow time series.
+        a (float): The recession coefficient.
+    
+    Returns:
+        numpy.ndarray: The baseflow time series.
+    """
     b = np.zeros(Q.shape[0])
     b[-1] = b_LH[-1]
     for i in range(Q.shape[0] - 1, 0, -1):

@@ -9,6 +9,20 @@ from baseflow.param_estimate import recession_coefficient, param_calibrate, maxm
 
 
 def single(series, area=None, ice=None, method='all', return_kge=True):
+    """
+    Perform baseflow separation on a given streamflow time series using various methods.
+    
+    Args:
+        series (pandas.Series): The streamflow time series to perform baseflow separation on.
+        area (float, optional): The drainage area of the streamflow station, used for some methods.
+        ice (numpy.ndarray or tuple, optional): A boolean array or a tuple of start and end months indicating the ice-affected period.
+        method (str or list, optional): The baseflow separation method(s) to use. Can be a single method name or a list of method names.
+        return_kge (bool, optional): Whether to return the Kling-Gupta Efficiency (KGE) score for each method.
+    
+    Returns:
+        pandas.DataFrame: A DataFrame containing the baseflow time series for each method.
+        pandas.Series: The KGE score for each method (only if `return_kge` is True).
+    """
     Q, date = clean_streamflow(series)
     method = format_method(method)
 
@@ -75,6 +89,22 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
 def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
     # baseflow separation worker for single station
     def sep_work(s):
+        """
+        Performs baseflow separation for a single station.
+        
+        Args:
+            s (str): The station ID.
+            df (pd.DataFrame): The input data frame containing the time series data.
+            df_sta (pd.DataFrame, optional): A data frame containing station metadata, such as area and coordinates.
+            method (str or list, optional): The baseflow separation method(s) to use. Defaults to 'all'.
+            return_bfi (bool, optional): Whether to return the baseflow index (BFI) for each method.
+            return_kge (bool, optional): Whether to return the Kling-Gupta efficiency (KGE) for each method.
+        
+        Returns:
+            dict: A dictionary of baseflow time series, where the keys are the method names.
+            pd.DataFrame: A data frame of BFI values for each method and station, if `return_bfi` is True.
+            pd.DataFrame: A data frame of KGE values for each method and station, if `return_kge` is True.
+        """
         try:
             # read area, longitude, latitude from df_sta
             area, ice = None, None

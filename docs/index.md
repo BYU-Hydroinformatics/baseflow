@@ -1,17 +1,19 @@
-# Welcome to MkDocs
+# 🌟 baseflow
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+baseflow is a Python package that provides a collection of functions for baseflow separation, which is the process of separating the baseflow component from the total streamflow.
 
-## Commands
+This project is funded by CIROH and aims to extend the functionality of the original baseflow package by adding new features and improvements. Our goal is to continuously enhance and maintain this package, keeping it up-to-date with the latest developments in baseflow separation techniques.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
 
-## Project layout
+## 🚀 Project Structure
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+├── methods <- implements for 12 baseflow separation methods  
+│    
+├── separation <- compute baseflow and compare different separation methods  
+│    
+├── param_estimate <- estimates recession coefficient & backward and calibration approaches to estimate other parameters   
+│  
+├── comparison <- an evaluation criterion to compare different
+methods (KGE) & compute strict baseflow  
+│    
+└── utils <- helper functions

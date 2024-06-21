@@ -1,4 +1,4 @@
-site_name: baseflow_pypi
+site_name: baseflow
 theme: material
 nav:
     - Home: index.md

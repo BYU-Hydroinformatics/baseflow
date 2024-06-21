@@ -2,6 +2,25 @@ import numpy as np
 
 
 def strict_baseflow(Q, ice=None):
+    """
+    Identify the strict baseflow component of a flow time series.
+    
+    This function applies a series of heuristic rules to identify the strict baseflow
+    component of a flow time series. The rules are based on the behavior of the
+    derivative of the flow time series, as well as the magnitude of the flow values.
+    
+    The function returns a boolean mask indicating the time steps that correspond to
+    the strict baseflow component.
+    
+    Parameters:
+        Q (numpy.ndarray): The flow time series.
+        ice (numpy.ndarray, optional): A boolean mask indicating time steps with ice
+            conditions, which can invalidate the groundwater-baseflow relationship.
+    
+    Returns:
+        numpy.ndarray: A boolean mask indicating the time steps that correspond to
+            the strict baseflow component.
+    """
     dQ = (Q[2:] - Q[:-2]) / 2
 
     # 1. flow data associated with positive and zero values of dy / dt
@@ -29,7 +48,7 @@ def strict_baseflow(Q, ice=None):
     # dry points, namely strict baseflow
     dry = ~(wet1 + wet2 + wet3 + wet4)
 
-   # avoid ice conditions which invalidate the groundwater-baseflow relationship
+    # avoid ice conditions which invalidate the groundwater-baseflow relationship
     if ice is not None:
         dry[ice] = False
 

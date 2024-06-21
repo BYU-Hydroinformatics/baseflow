@@ -1,25 +1,18 @@
 <div align="center">
 
-# baseflow
+# 🌟baseflow
 
 </div>
-**baseflow** is a Python package that provides a collection of functions for baseflow separation, which is the process of separating the baseflow component from the total streamflow. This project is a copy of the [baseflow](https://github.com/xiejx5/baseflow) repository, which implements various baseflow separation methods described in the paper by Xie et al. (2020): "Evaluation of typical methods for baseflow separation in the contiguous United States" (Journal of Hydrology, 583, 124628. https://doi.org/10.1016/j.jhydrol.2020.124628).
+baseflow is a Python package that provides a collection of functions for baseflow separation, which is the process of separating the baseflow component from the total streamflow. 
 
-This project is funded by CIROH (Center for Integrated Remote Sensing and Hydrologic Modeling) and aims to extend the functionality of the original baseflow package by adding new features and improvements. Our goal is to continuously enhance and maintain this package, keeping it up-to-date with the latest developments in baseflow separation techniques.
+This project is a copy of the [baseflow repository](https://github.com/xiejx5/baseflow) , which implements various baseflow separation methods described in the paper by Xie et al. (2020): "Evaluation of typical methods for baseflow separation in the contiguous United States" (Journal of Hydrology, 583, 124628. https://doi.org/10.1016/j.jhydrol.2020.124628).
+
+This project is funded by [CIROH](https://ciroh.utah.edu/) (Center for Integrated Remote Sensing and Hydrologic Modeling) and aims to extend the functionality of the original baseflow package by adding new features and improvements. Our goal is to continuously enhance and maintain this package, keeping it up-to-date with the latest developments in baseflow separation techniques.
 
 For detailed usage instructions and examples, please refer to the [usage guide](link to the usage guide)  🔥.
 
 <br>
 
-
-<br>
-
-<div align="center">
-
-![Global Baseflow Index Distribution from 12 Separation Methods](https://user-images.githubusercontent.com/29588684/226364211-3fd46152-3b9a-4de9-8d77-f1b59747a0f4.jpg)
-
-</div>
-<br>
 
 
 ## ⚡&nbsp;&nbsp;Usage
@@ -46,7 +39,7 @@ print(f'Best Method:\n{df_kge.idxmax(axis=1)}')
 
 
 
-## Project Structure
+## 🚀Project Structure
 The directory structure of baseflow looks like this:
 ```
 ├── methods <- implements for 12 baseflow separation methods  

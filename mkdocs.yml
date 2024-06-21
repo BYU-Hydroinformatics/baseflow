@@ -1,1 +1,8 @@
-site_name: Baseflow Documentation
+site_name: baseflow_pypi
+nav:
+    - Home: index.md
+    - API Reference: api.md
+
+plugins:
+    - mkdocstrings
+    - search

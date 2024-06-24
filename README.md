@@ -10,7 +10,7 @@ This project is a copy of the [baseflow repository](https://github.com/xiejx5/ba
 
 This project is funded by [CIROH](https://ciroh.ua.edu/) and aims to extend the functionality of the original baseflow package by adding new features and improvements. Our goal is to continuously enhance and maintain this package, keeping it up-to-date with the latest developments in baseflow separation techniques.
 
-For detailed usage instructions and examples, please refer to the [usage guide](link to the usage guide)  🔥.
+For detailed usage instructions and examples, please refer to the [📖 documentation](https://baseflow.readthedocs.io/en/latest/)  🔥.
 
 <br>
 

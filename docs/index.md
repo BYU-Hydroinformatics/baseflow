@@ -4,7 +4,7 @@ baseflow is a Python package that provides a collection of functions for baseflo
 
 This project is funded by [CIROH](https://ciroh.ua.edu/) and aims to extend the functionality of the original baseflow package by adding new features and improvements. Our goal is to continuously enhance and maintain this package, keeping it up-to-date with the latest developments in baseflow separation techniques.
 
-🔥 Our GitHub repository is https://github.com/BYU-Hydroinformatics/baseflow/tree/merge-my-changes.
+🔥 Our [GitHub](https://github.com/BYU-Hydroinformatics/baseflow/tree/merge-my-changes.)
 
 ## 🚀 Project Structure
 

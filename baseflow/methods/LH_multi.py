@@ -8,7 +8,9 @@ def LH_multi(Q, beta=0.925, num_pass=2, return_exceed=False):
     Applies a low-pass filter to the input time series `Q` using the Lyne-Hollick (LH) recursive digital filter.
     
     The filter is applied in multiple passes, with the number of passes controlled by the `num_pass` parameter. The filter uses a smoothing parameter `beta` to control the degree of filtering.
-    
+
+    Spongberg, M. E. “Spectral Analysis of Base Flow Separation with Digital Filters.” Water Resources Research 36, no. 3 (2000): 745–52. https://doi.org/10.1029/1999WR900303.
+   
     If `return_exceed` is True, the function will also return the number of times the filtered output `b` exceeds the original input `Q`.
     
     Args:

@@ -1,0 +1,123 @@
+import numpy as np
+from numba import njit, prange
+
+def drought_flow_points(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
+    """
+    Identifies the drought flow points in the discharge time series.
+
+    Args:
+        Q (numpy.ndarray): The discharge time series.
+        L_min (int): Minimum number of points to be eliminated at the beginning and end of recession episode.
+        snow_freeze_period (tuple): Start and end indices of the snow and/or freeze period.
+        observational_precision (float): Observational precision threshold.
+        quantile (float): Quantile for identifying major events, default is 0.9.
+
+    Returns:
+        numpy.ndarray: The indices of the drought flow points.
+    """
+    # Step 1: Time series
+    S = estimate_recession_slope(Q)
+    
+    # Step 2: Recession episodes
+    recession_episodes = identify_recession_episodes(S, L_min)
+    
+    # Step 3: Drought flow points
+    drought_flow_points = eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, quantile)
+    
+    return drought_flow_points
+
+@njit
+def estimate_recession_slope(Q):
+    """
+    Estimates the recession slope S(t), i.e. -dQ/dt.
+    """
+    return -np.diff(Q)
+
+@njit
+def identify_recession_episodes(S, L_min):
+    """
+    Identifies the preliminary recession episodes.
+
+    Args:
+        S (numpy.ndarray): The recession slope time series.
+        L_min (int): Minimum length of a recession episode.
+
+    Returns:
+        list: A list of arrays, each containing the indices of a preliminary recession episode.
+    """
+    i = 0
+    N = len(S)
+    recession_episodes = []
+
+    while i < N - 1:
+        if S[i] <= 0 and S[i+1] > 0:
+            episode_start = i
+            l = 0
+            while i < N - 1 and S[i] <= 0:
+                i += 1
+                l += 1
+            if l >= L_min:
+                recession_episodes.append(np.arange(episode_start, i))
+        else:
+            i += 1
+
+    return recession_episodes
+
+@njit
+def eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, quantile):
+    """
+    Eliminates the points at the beginning, end, and during the snow/freeze period, as well as anomalous and low-precision points.
+
+    Args:
+        recession_episodes (list): A list of arrays, each containing the indices of a preliminary recession episode.
+        L_min (int): Minimum number of points to be eliminated at the beginning and end of recession episode.
+        snow_freeze_period (tuple): Start and end indices of the snow and/or freeze period.
+        observational_precision (float): Observational precision threshold.
+        Q (numpy.ndarray): The discharge time series.
+        quantile (float): Quantile for identifying major events.
+
+    Returns:
+        numpy.ndarray: The indices of the drought flow points.
+    """
+    drought_flow_points = []
+    major_event_threshold = np.quantile(Q, quantile)
+
+    for episode in recession_episodes:
+        # Eliminating the points at the beginning (i.e. C3 and C4) and end (i.e. C5) of the recession episode
+        episode = episode[L_min:-L_min]
+        
+        # Eliminating the anomalous data points (i.e. C6 and C7)
+        episode = episode[Q[episode[1:]] <= Q[episode[:-1]]]
+        
+        # Eliminating the data points during the snow and/or freeze periods (i.e. C8)
+        episode = episode[(episode < snow_freeze_period[0]) | (episode > snow_freeze_period[1])]
+        
+        # Eliminating the data points of which Q(t) are smaller than observational precision (i.e. C9)
+        episode = episode[Q[episode] >= observational_precision]
+        
+        # Eliminating points after major events
+        major_events = np.where(Q[episode] > major_event_threshold)[0]
+        if len(major_events) > 0:
+            episode = episode[:(major_events[-1] + 1)]
+        
+        drought_flow_points.append(episode)
+
+    return np.concatenate(drought_flow_points)
+
+# Example usage
+if __name__ == "__main__":
+    # Generate sample data
+    np.random.seed(42)
+    Q = np.random.rand(1000) * 100
+    
+    # Set parameters
+    L_min = 5
+    snow_freeze_period = (300, 400)
+    observational_precision = 0.1
+    quantile = 0.9
+    
+    # Identify drought flow points
+    drought_points = drought_flow_points(Q, L_min, snow_freeze_period, observational_precision, quantile)
+    
+    print(f"Number of drought flow points identified: {len(drought_points)}")
+    print(f"Indices of first 10 drought flow points: {drought_points[:10]}")

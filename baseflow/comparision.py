@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def strict_baseflow(Q, ice=None):
+def strict_baseflow(Q, ice=None, quantile=0.9):
     """
     Identify the strict baseflow component of a flow time series.
     
@@ -16,6 +16,8 @@ def strict_baseflow(Q, ice=None):
         Q (numpy.ndarray): The flow time series.
         ice (numpy.ndarray, optional): A boolean mask indicating time steps with ice
             conditions, which can invalidate the groundwater-baseflow relationship.
+        quantile (float, optional): The quantile value used to identify major events.
+            Default is 0.9 (90th percentile).
     
     Returns:
         numpy.ndarray: A boolean mask indicating the time steps that correspond to
@@ -35,9 +37,9 @@ def strict_baseflow(Q, ice=None):
     wet2 = np.full(Q.shape, False)
     wet2[idx_remove.clip(min=0, max=Q.shape[0] - 1)] = True
 
-    # 3. five data points after major events (90th quantile)
+    # 3. five data points after major events (quantile)
     growing = np.concatenate([[True], (Q[1:] - Q[:-1]) >= 0, [True]])
-    idx_major = np.where((Q >= np.quantile(Q, 0.9)) & growing[:-1] & ~growing[1:])[0]
+    idx_major = np.where((Q >= np.quantile(Q, quantile)) & growing[:-1] & ~growing[1:])[0]
     idx_after = np.repeat([idx_major], 5) + np.tile(range(1, 6), idx_major.shape)
     wet3 = np.full(Q.shape, False)
     wet3[idx_after.clip(min=0, max=Q.shape[0] - 1)] = True

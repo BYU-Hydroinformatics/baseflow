@@ -5,6 +5,7 @@ from numba import njit
 @njit
 def Eckhardt(Q, b_LH, a, BFImax, return_exceed=False):
     """Eckhardt filter (Eckhardt, 2005)
+    Eckhardt, K. “How to Construct Recursive Digital Filters for Baseflow Separation.” Hydrological Processes 19, no. 2 (2005): 507–15. https://doi.org/10.1002/hyp.5675.
 
     Args:
         Q (np.array): streamflow

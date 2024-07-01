@@ -4,7 +4,8 @@ from numba import njit
 @njit
 def Boughton(Q, a, C, initial_method='Q0', return_exceed=False):
     """Boughton doulbe-parameter filter (Boughton, 2004)
-
+    Boughton W.C. (1993) - A hydrograph-based model for estimating water yield of ungauged catchments. Institute of Engineers Australia National Conference. Publ. 93/14, pp. 317-324.
+    
     Args:
         Q (np.array): streamflow
         a (float): recession coefficient

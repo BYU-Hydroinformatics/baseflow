@@ -4,7 +4,8 @@ import pandas as pd
 def tr55(streamflow, precipitation, CN, Ia=None):
     """
     Separates baseflow from a streamflow time series using the TR-55 method.
-
+    Cronshey R. et. al (1986) - Urban Hydrology for Small Watersheds, Technical Release 55, June 1986, United States Department of Agriculture.
+    
     Args:
         streamflow (pandas.Series): A pandas Series of streamflow values.
         precipitation (pandas.Series): A pandas Series of precipitation values.

@@ -13,6 +13,10 @@ def LH_multi(Q, beta=0.925, num_pass=2, return_exceed=False):
    
     If `return_exceed` is True, the function will also return the number of times the filtered output `b` exceeds the original input `Q`.
     
+    Lyne, V. and Hollick, M. (1979) Stochastic Time-Variable Rainfall-Runoff Modeling. Institute of Engineers Australia National Conference, 89-93. 
+    
+    Spongberg, M. E. “Spectral Analysis of Base Flow Separation with Digital Filters.” Water Resources Research 36, no. 3 (2000): 745–52. https://doi.org/10.1029/1999WR900303.
+
     Args:
         Q (numpy.ndarray): The input time series to be filtered.
         beta (float, optional): The smoothing parameter for the LH filter, between 0 and 1. Defaults to 0.925.

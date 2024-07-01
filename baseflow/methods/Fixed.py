@@ -5,7 +5,8 @@ from baseflow.methods.Local import hysep_interval
 
 def Fixed(Q, area=None):
     """Fixed interval graphical method from HYSEP program (Sloto & Crouse, 1996)
-
+    Sloto, R. A., & Crouse, M. Y. (1996). HYSEP: A Computer Program for Streamflow Hydrograph Separation and Analysis (96-4040). Reston, VA: U.S. Geological Survey. https://doi.org/10.3133/wri964040.
+    
     Args:
         Q (np.array): streamflow
         area (float): basin area in km^2

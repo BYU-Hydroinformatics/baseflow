@@ -5,7 +5,8 @@ from numba import njit
 @njit
 def CM(Q, b_LH, a, return_exceed=False):
     """CM filter (Chapman & Maxwell, 1996)
-
+    Chapman, T. G., Maxwell, A. I. (1996) - Baseflow separation - comparison of numerical methods with tracer experiments, in Hydrol. and Water Resour. Symp., Institution of Engineers Australia, Hobart. pp. 539-545.
+    
     Args:
         Q (np.array): streamflow
         a (float): recession coefficient

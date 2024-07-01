@@ -4,7 +4,9 @@ from numba import njit, prange
 def drought_flow_points(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
     """
     Identifies the drought flow points in the discharge time series.
-
+    
+    Cheng, Lei, Lu Zhang, and Wilfried Brutsaert. “Automated Selection of Pure Base Flows from Regular Daily Streamflow Data: Objective Algorithm.” Journal of Hydrologic Engineering 21, no. 11 (November 1, 2016): 06016008. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001427.
+    
     Args:
         Q (numpy.ndarray): The discharge time series.
         L_min (int): Minimum number of points to be eliminated at the beginning and end of recession episode.

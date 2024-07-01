@@ -4,6 +4,7 @@ from numba import njit, prange
 
 def UKIH(Q, b_LH, return_exceed=False):
     """graphical method developed by UK Institute of Hydrology (UKIH, 1980)
+    Aksoy, Hafzullah, Ilker Kurt, and Ebru Eris. “Filtered Smoothed Minima Baseflow Separation Method.” Journal of Hydrology 372, no. 1 (June 15, 2009): 94–101. https://doi.org/10.1016/j.jhydrol.2009.03.037.
 
     Args:
         Q (np.array): streamflow

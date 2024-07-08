@@ -1,10 +1,9 @@
 import numpy as np
 from numba import njit, prange
 
-def drought_flow_points(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
+def bn77(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
     """
     Identifies the drought flow points in the discharge time series.
-    
     Cheng, Lei, Lu Zhang, and Wilfried Brutsaert. “Automated Selection of Pure Base Flows from Regular Daily Streamflow Data: Objective Algorithm.” Journal of Hydrologic Engineering 21, no. 11 (November 1, 2016): 06016008. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001427.
     
     Args:
@@ -119,7 +118,7 @@ if __name__ == "__main__":
     quantile = 0.9
     
     # Identify drought flow points
-    drought_points = drought_flow_points(Q, L_min, snow_freeze_period, observational_precision, quantile)
+    drought_points = bn77(Q, L_min, snow_freeze_period, observational_precision, quantile)
     
     print(f"Number of drought flow points identified: {len(drought_points)}")
     print(f"Indices of first 10 drought flow points: {drought_points[:10]}")

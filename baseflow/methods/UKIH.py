@@ -8,6 +8,8 @@ def UKIH(Q, b_LH, return_exceed=False):
 
     Args:
         Q (np.array): streamflow
+        return_exceed (bool, optional): if True, returns the number of times the
+            baseflow exceeds the streamflow.
     """
     N = 5
     block_end = Q.shape[0] // N * N

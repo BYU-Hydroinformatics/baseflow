@@ -10,8 +10,12 @@ def Boughton(Q, a, C, initial_method='Q0', return_exceed=False):
         Q (np.array): streamflow
         a (float): recession coefficient
         C (float): calibrated in baseflow.param_estimate
-        initial_method (str, optional): method to calculate the initial baseflow value.
-            'Q0' for Q[0], 'min' for np.min(Q), or 'LH' to calculate using the LH method.
+        initial_method (str or float, optional): method to calculate the initial baseflow value.
+            Accepted string values are:
+            - 'Q0': Use Q[0] as the initial baseflow value.
+            - 'min': Use np.min(Q) as the initial baseflow value.
+            - 'LH': Calculate the initial baseflow value using the LH method.
+            Alternatively, a float value can be provided to directly set the initial baseflow value.
             Default is 'Q0'.
         return_exceed (bool, optional): if True, returns the number of times the
             baseflow exceeds the streamflow.
@@ -22,12 +26,17 @@ def Boughton(Q, a, C, initial_method='Q0', return_exceed=False):
         b = np.zeros(Q.shape[0])
 
     # Set initial value for b based on the specified method
-    if initial_method == 'Q0':
-        b[0] = Q[0]
-    elif initial_method == 'min':
-        b[0] = np.min(Q)
-    else:  # initial_method == 'LH'
-        b[0] = LH(Q)[0]  # Calculate the initial value using the LH method
+    if isinstance(initial_method, str):
+        if initial_method == 'Q0':
+            b[0] = Q[0]
+        elif initial_method == 'min':
+            b[0] = np.min(Q)
+        elif initial_method == 'LH':
+            b[0] = LH(Q)[0]  # Calculate the initial value using the LH method
+        else:
+            raise ValueError(f"Invalid initial_method: {initial_method}")
+    else:
+        b[0] = initial_method
 
     for i in range(Q.shape[0] - 1):
         b[i + 1] = a / (1 + C) * b[i] + C / (1 + C) * Q[i + 1]

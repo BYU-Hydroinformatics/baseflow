@@ -3,13 +3,12 @@ import pandas as pd
 from tqdm import tqdm
 from numba import njit, prange
 from pathlib import Path
-from baseflow.methods import *
 from baseflow.comparision import strict_baseflow, KGE
 from baseflow.utils import clean_streamflow, exist_ice, geo2imagexy, format_method
 from baseflow.param_estimate import recession_coefficient, param_calibrate, maxmium_BFI
 
 
-def single(series, area=None, ice=None, method='all', return_kge=True):
+def single_station(series, area=None, ice=None, method='all', return_kge=True):
     """
     Perform baseflow separation on a given streamflow time series using various methods.
     
@@ -87,7 +86,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
         return b, None
 
 
-def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
+def mult_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
     # baseflow separation worker for single station
     def sep_work(s):
         """

@@ -1,6 +1,5 @@
 import numpy as np
 from numba import njit, prange
-from local import hysep_interval
 
 
 def fixed(Q, area=None):
@@ -26,25 +25,6 @@ def fixed_interpolation(Q, inN):
     return b
 
 
-from baseflow.methods.ukih import linear_interpolation
-
-
-def local(Q, b_LH, area=None, return_exceed=False):
-    """Local minimum graphical method from HYSEP program (Sloto & Crouse, 1996)
-
-    Args:
-        Q (np.array): streamflow
-        area (float): basin area in km^2
-    """
-    idx_turn = local_turn(Q, hysep_interval(area))
-    if idx_turn.shape[0] < 3:
-        raise IndexError('Less than 3 turning points found')
-    b = linear_interpolation(Q, idx_turn, return_exceed=return_exceed)
-    b[:idx_turn[0]] = b_LH[:idx_turn[0]]
-    b[idx_turn[-1] + 1:] = b_LH[idx_turn[-1] + 1:]
-    return b
-
-
 def hysep_interval(area):
     # The duration of surface runoff is calculated from the empirical relation:
     # N=A^0.2, (1) where N is the number of days after which surface runoff ceases,
@@ -62,10 +42,3 @@ def hysep_interval(area):
     return inN
 
 
-@njit
-def local_turn(Q, inN):
-    idx_turn = np.zeros(Q.shape[0], dtype=np.int64)
-    for i in prange(np.int64((inN - 1) / 2), np.int64(Q.shape[0] - (inN - 1) / 2)):
-        if Q[i] == np.min(Q[np.int64(i - (inN - 1) / 2):np.int64(i + (inN + 1) / 2)]):
-            idx_turn[i] = i
-    return idx_turn[idx_turn != 0]

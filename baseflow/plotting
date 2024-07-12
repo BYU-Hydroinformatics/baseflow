@@ -48,8 +48,8 @@ if __name__ == "__main__":
     BFImax = 0.8  # Assumed BFImax
 
     baseflows = {
-        'Boughton': Boughton(Q.values,Q.values, a, C, return_exceed=False),
-        'Eckhardt': Eckhardt(Q.values, Q.values, a, BFImax, return_exceed=False)
+        'Boughton': boughton(Q.values,Q.values, a, C, return_exceed=False),
+        'Eckhardt': eckhardt(Q.values, Q.values, a, BFImax, return_exceed=False)
     }
 
     plot_baseflow_separation(Q, baseflows, ['Boughton', 'Eckhardt'], interactive=False)

@@ -32,7 +32,7 @@ def boughton(Q, a, C, initial_method='Q0', return_exceed=False):
         elif initial_method == 'min':
             b[0] = np.min(Q)
         elif initial_method == 'LH':
-            b[0] = LH(Q)[0]  # Calculate the initial value using the LH method
+            b[0] = lh(Q)[0]  # Calculate the initial value using the LH method
         else:
             raise ValueError(f"Invalid initial_method: {initial_method}")
     else:

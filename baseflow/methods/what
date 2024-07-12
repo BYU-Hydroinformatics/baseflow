@@ -28,4 +28,5 @@ def what(streamflow, BFImax, alpha):
 
     quickflow = streamflow - baseflow
 
-    return baseflow, quickflow
+    return baseflow
+

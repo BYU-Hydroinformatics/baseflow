@@ -1,6 +1,6 @@
 import numpy as np
 from numba import njit, prange
-from baseflow.methods.local import hysep_interval
+from local import hysep_interval
 
 
 def fixed(Q, area=None):

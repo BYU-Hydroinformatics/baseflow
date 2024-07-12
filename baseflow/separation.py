@@ -603,9 +603,6 @@ def local_turn(Q, inN):
             idx_turn[i] = i
     return idx_turn[idx_turn != 0]
 
-from baseflow.methods.local import hysep_interval
-
-
 def slide(Q, area):
     """Slide interval graphical method from HYSEP program (Sloto & Crouse, 1996)
     Sloto, R. A., & Crouse, M. Y. (1996). HYSEP: A Computer Program for Streamflow Hydrograph Separation and Analysis (96-4040). Reston, VA: U.S. Geological Survey. https://doi.org/10.3133/wri964040.

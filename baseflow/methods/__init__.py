@@ -1,3 +1,5 @@
+from baseflow.methods.lh import *
+from baseflow.methods.local import *
 from baseflow.methods.boughton import *
 from baseflow.methods.chapman import *
 from baseflow.methods.chapman_maxwell import *
@@ -5,8 +7,6 @@ from baseflow.methods.eckhardt import *
 from baseflow.methods.ewma import *
 from baseflow.methods.fixed import *
 from baseflow.methods.furey import *
-from baseflow.methods.lh import *
-from baseflow.methods.local import *
 from baseflow.methods.slide import *
 from baseflow.methods.ukih import *
 from baseflow.methods.willems import *

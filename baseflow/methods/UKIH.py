@@ -2,7 +2,7 @@ import numpy as np
 from numba import njit, prange
 
 
-def UKIH(Q, b_LH, return_exceed=False):
+def ukih(Q, b_LH, return_exceed=False):
     """graphical method developed by UK Institute of Hydrology (UKIH, 1980)
     Aksoy, Hafzullah, Ilker Kurt, and Ebru Eris. “Filtered Smoothed Minima Baseflow Separation Method.” Journal of Hydrology 372, no. 1 (June 15, 2009): 94–101. https://doi.org/10.1016/j.jhydrol.2009.03.037.
 
@@ -15,7 +15,7 @@ def UKIH(Q, b_LH, return_exceed=False):
     block_end = Q.shape[0] // N * N
     idx_min = np.argmin(Q[:block_end].reshape(-1, N), axis=1)
     idx_min = idx_min + np.arange(0, block_end, N)
-    idx_turn = UKIH_turn(Q, idx_min)
+    idx_turn = ukih_turn(Q, idx_min)
     if idx_turn.shape[0] < 3:
         raise IndexError('Less than 3 turning points found')
     b = linear_interpolation(Q, idx_turn, return_exceed=return_exceed)
@@ -25,7 +25,7 @@ def UKIH(Q, b_LH, return_exceed=False):
 
 
 @njit
-def UKIH_turn(Q, idx_min):
+def ukih_turn(Q, idx_min):
     idx_turn = np.zeros(idx_min.shape[0], dtype=np.int64)
     for i in prange(idx_min.shape[0] - 2):
         if ((0.9 * Q[idx_min[i + 1]] < Q[idx_min[i]]) &

@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def EWMA(Q, e, initial_method='Q0', return_exceed=False):
+def ewma(Q, e, initial_method='Q0', return_exceed=False):
     """exponential weighted moving average (EWMA) filter (Tularam & Ilahee, 2008)
     Tularam, Gurudeo Anand, and Mahbub Ilahee. “Exponential Smoothing Method of Base Flow Separation and Its Impact on Continuous Loss Estimates.” American Journal of Environmental Sciences 4, no. 2 (April 30, 2008): 136–44. https://doi.org/10.3844/ajessp.2008.136.144.
     
@@ -46,7 +46,7 @@ def EWMA(Q, e, initial_method='Q0', return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

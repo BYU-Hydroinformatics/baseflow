@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def Furey(Q, a, A, initial_method='Q0', return_exceed=False):
+def furey(Q, a, A, initial_method='Q0', return_exceed=False):
     """Furey digital filter (Furey & Gupta, 2001, 2003)
     Furey, Peter R., and Vijay K. Gupta. “A Physically Based Filter for Separating Base Flow from Streamflow Time Series.” Water Resources Research 37, no. 11 (2001): 2709–22. https://doi.org/10.1029/2001WR000243.
 
@@ -48,7 +48,7 @@ def Furey(Q, a, A, initial_method='Q0', return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

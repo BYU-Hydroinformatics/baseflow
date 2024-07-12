@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def Eckhardt(Q, a, BFImax, initial_method='Q0', return_exceed=False):
+def eckhardt(Q, a, BFImax, initial_method='Q0', return_exceed=False):
     """Eckhardt filter (Eckhardt, 2005)
     Eckhardt, K. “How to Construct Recursive Digital Filters for Baseflow Separation.” Hydrological Processes 19, no. 2 (2005): 507–15. https://doi.org/10.1002/hyp.5675.
 
@@ -47,7 +47,7 @@ def Eckhardt(Q, a, BFImax, initial_method='Q0', return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

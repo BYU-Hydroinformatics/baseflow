@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def Willems(Q, a, w, initial_method='Q0', return_exceed=False):
+def willems(Q, a, w, initial_method='Q0', return_exceed=False):
     """digital filter (Willems, 2009)
 
     Args:
@@ -49,7 +49,7 @@ def Willems(Q, a, w, initial_method='Q0', return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

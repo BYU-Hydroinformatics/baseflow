@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def LH(Q, beta=0.925, return_exceed=False):
+def lh(Q, beta=0.925, return_exceed=False):
     """LH digital filter (Lyne & Hollick, 1979)
     Lyne, V. and Hollick, M. (1979) Stochastic Time-Variable Rainfall-Runoff Modeling. Institute of Engineers Australia National Conference, 89-93.
     

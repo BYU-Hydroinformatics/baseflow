@@ -1,16 +1,16 @@
 import numpy as np
 from numba import njit, prange
-from baseflow.methods.UKIH import linear_interpolation
+from baseflow.methods.ukih import linear_interpolation
 
 
-def Local(Q, b_LH, area=None, return_exceed=False):
+def local(Q, b_LH, area=None, return_exceed=False):
     """Local minimum graphical method from HYSEP program (Sloto & Crouse, 1996)
 
     Args:
         Q (np.array): streamflow
         area (float): basin area in km^2
     """
-    idx_turn = Local_turn(Q, hysep_interval(area))
+    idx_turn = local_turn(Q, hysep_interval(area))
     if idx_turn.shape[0] < 3:
         raise IndexError('Less than 3 turning points found')
     b = linear_interpolation(Q, idx_turn, return_exceed=return_exceed)
@@ -37,7 +37,7 @@ def hysep_interval(area):
 
 
 @njit
-def Local_turn(Q, inN):
+def local_turn(Q, inN):
     idx_turn = np.zeros(Q.shape[0], dtype=np.int64)
     for i in prange(np.int64((inN - 1) / 2), np.int64(Q.shape[0] - (inN - 1) / 2)):
         if Q[i] == np.min(Q[np.int64(i - (inN - 1) / 2):np.int64(i + (inN + 1) / 2)]):

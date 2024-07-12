@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def LH_multi(Q, beta=0.925, num_pass=2, return_exceed=False):
+def lh_multi(Q, beta=0.925, num_pass=2, return_exceed=False):
     """
     Applies a low-pass filter to the input time series `Q` using the Lyne-Hollick (LH) recursive digital filter.
     

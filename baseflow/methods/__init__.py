@@ -1,6 +1,6 @@
 from baseflow.methods.Boughton import *
 from baseflow.methods.Chapman import *
-from baseflow.methods.CM import *
+from baseflow.methods.chapman_maxwell import *
 from baseflow.methods.Eckhardt import *
 from baseflow.methods.EWMA import *
 from baseflow.methods.Fixed import *

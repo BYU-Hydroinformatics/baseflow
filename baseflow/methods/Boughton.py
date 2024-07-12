@@ -2,7 +2,7 @@ import numpy as np
 from numba import njit
 
 @njit
-def Boughton(Q, a, C, initial_method='Q0', return_exceed=False):
+def boughton(Q, a, C, initial_method='Q0', return_exceed=False):
     """Boughton doulbe-parameter filter (Boughton, 2004)
     Boughton W.C. (1993) - A hydrograph-based model for estimating water yield of ungauged catchments. Institute of Engineers Australia National Conference. Publ. 93/14, pp. 317-324.
     
@@ -48,7 +48,7 @@ def Boughton(Q, a, C, initial_method='Q0', return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

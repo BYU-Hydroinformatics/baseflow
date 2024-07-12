@@ -2,7 +2,7 @@ import numpy as np
 from numba import njit
 
 @njit
-def Chapman(Q, a, initial_method='Q0', return_exceed=False):
+def chapman(Q, a, initial_method='Q0', return_exceed=False):
     """Chapman filter (Chapman, 1991)
     Chapman, Tom G. "Comment on 'Evaluation of Automated Techniques for Base Flow and Recession Analyses' by R. J. Nathan and T. A. McMahon." Water Resources Research 27, no. 7 (1991): 1783–84. https://doi.org/10.1029/91WR01007.
 
@@ -46,7 +46,7 @@ def Chapman(Q, a, initial_method='Q0', return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

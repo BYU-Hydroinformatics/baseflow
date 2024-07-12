@@ -3,7 +3,7 @@ from numba import njit
 
 
 @njit
-def CM(Q, a, initial_method='Q0' , return_exceed=False):
+def chapman_maxwell(Q, a, initial_method='Q0' , return_exceed=False):
     """CM filter (Chapman & Maxwell, 1996)
     Chapman, T. G., Maxwell, A. I. (1996) - Baseflow separation - comparison of numerical methods with tracer experiments, in Hydrol. and Water Resour. Symp., Institution of Engineers Australia, Hobart. pp. 539-545.
     
@@ -45,7 +45,7 @@ def CM(Q, a, initial_method='Q0' , return_exceed=False):
     return b
 
 @njit
-def LH(Q, beta=0.925):
+def lh(Q, beta=0.925):
     """LH digital filter (Lyne & Hollick, 1979)
 
     Args:

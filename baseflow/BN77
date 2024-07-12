@@ -11,7 +11,7 @@ def bn77(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
         L_min (int): Minimum number of points to be eliminated at the beginning and end of recession episode.
         snow_freeze_period (tuple): Start and end indices of the snow and/or freeze period.
         observational_precision (float): Observational precision threshold.
-        quantile (float): Quantile for identifying major events, default is 0.9.
+        quantile (float): Quanti le for identifying major events, default is 0.9.
 
     Returns:
         numpy.ndarray: The indices of the drought flow points.
@@ -62,8 +62,9 @@ def identify_recession_episodes(S, L_min):
 
     while i < N - 1:
         if S[i] <= 0 and S[i+1] > 0:
-            episode_start = i
+            episode_start = i + 1 ##
             l = 0
+            i=i+1 ##
             # how many points's S > 0
             while i < N - 1 and S[i] > 0:
                 i += 1

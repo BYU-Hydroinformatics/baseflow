@@ -1,15 +1,16 @@
 # Instructions
 
-Baseflow Separation Application Programming Interface (API)
+## **Baseflow Separation Application Programming Interface (API)**
 
-## Baseflow Package
+### *Baseflow Package*
 
 We have developed a Python package named `baseflow` that provides tools for baseflow separation. This package is available on PyPI and can be easily installed using pip:
 
-```sh
+```python
 pip install baseflow
+```
 
-## Baseflow API Google Colaboratory Notebook
+### *Baseflow API Google Colaboratory Notebook*
 
 To help you get started with the baseflow package, we have created a Colab notebook that demonstrates its usage. The notebook includes the following content:
 
@@ -19,6 +20,11 @@ To help you get started with the baseflow package, we have created a Colab noteb
 - **Advanced Features**: Demonstrations of advanced features and customization options available in the baseflow package.
 - **Visualization**: Techniques for visualizing the results of baseflow separation using popular Python libraries such as Matplotlib.
 
-You can access the Colab notebook here.
+You can access the Colab notebook here:
+<div class="colab-button">
+    <a href="https://colab.research.google.com/drive/1xIAehOBByoT6phODrLNnME-u3S5A_DaF?usp=sharing" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
+    </a>
+</div>
 
 We hope this notebook helps you understand how to effectively use the baseflow package for your baseflow separation needs.

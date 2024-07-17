@@ -8,7 +8,7 @@ from baseflow.utils import clean_streamflow, exist_ice, geo2imagexy, format_meth
 from baseflow.param_estimate import recession_coefficient, param_calibrate, maxmium_BFI
 
 
-def single_station(series, area=None, ice=None, method='all', return_kge=True):
+def single_station(series, area=None, ice=None, method='all'):
     """
     Perform baseflow separation on a given streamflow time series using various methods.
     
@@ -17,12 +17,18 @@ def single_station(series, area=None, ice=None, method='all', return_kge=True):
         area (float, optional): The drainage area of the streamflow station, used for some methods.
         ice (numpy.ndarray or tuple, optional): A boolean array or a tuple of start and end months indicating the ice-affected period.
         method (str or list, optional): The baseflow separation method(s) to use. Can be a single method name or a list of method names.
-        return_kge (bool, optional): Whether to return the Kling-Gupta Efficiency (KGE) score for each method.
-    
+            Accepted string values are:
+            - 'CM': Chapman and Manning (1985)
+            - 'Boughton': Boughton and Eckhardt (1987)
+            - 'Furey': Furey and Willems (1989)
+            - 'Willems': Willems (1991)
+            - 'UKIH': UKI-Hydro (2000)
+            - 'Local': Local method (2009)
+            - 'all': All methods.
+            Default is 'all'.
     Returns:
         pandas.DataFrame: A DataFrame containing the baseflow time series for each method.
-        pandas.Series: The KGE score for each method (only if `return_kge` is True).
-    """
+        """
     Q, date = clean_streamflow(series)
     method = format_method(method)
 
@@ -78,16 +84,12 @@ def single_station(series, area=None, ice=None, method='all', return_kge=True):
             w = param_calibrate(np.arange(0.001, 1, 0.001), willems, Q, b_LH, a)
             b[m] = willems(Q, b_LH, a, w)
 
-    if return_kge:
-        KGEs = pd.Series(KGE(b[strict].values, np.repeat(
-            Q[strict], len(method)).reshape(-1, len(method))), index=b.columns)
-        return b, KGEs
-    else:
-        return b, None
+        return b
 
 
-def mult_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
-    # baseflow separation worker for single station
+def multi_stations(df, df_sta=None, method='all'):
+    # baseflow separation worker for multiple stations
+
     def sep_work(s):
         """
         Performs baseflow separation for a single station.
@@ -97,34 +99,17 @@ def mult_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=Fa
             df (pd.DataFrame): The input data frame containing the time series data.
             df_sta (pd.DataFrame, optional): A data frame containing station metadata, such as area and coordinates.
             method (str or list, optional): The baseflow separation method(s) to use. Defaults to 'all'.
-            return_bfi (bool, optional): Whether to return the baseflow index (BFI) for each method.
-            return_kge (bool, optional): Whether to return the Kling-Gupta efficiency (KGE) for each method.
-        
+
         Returns:
             dict: A dictionary of baseflow time series, where the keys are the method names.
-            pd.DataFrame: A data frame of BFI values for each method and station, if `return_bfi` is True.
-            pd.DataFrame: A data frame of KGE values for each method and station, if `return_kge` is True.
         """
         try:
-            # read area, longitude, latitude from df_sta
             area, ice = None, None
-            to_num = lambda col: (pd.to_numeric(df_sta.loc[s, col], errors='coerce')
-                                  if (df_sta is not None) and (col in df_sta.columns) else np.nan)
-            if np.isfinite(to_num('area')):
-                area = to_num('area')
-            if np.isfinite(to_num('lon')):
-                c, r = geo2imagexy(to_num('lon'), to_num('lat'))
-                ice = ~thawed[:, r, c]
-                ice = ([11, 1], [3, 31]) if ice.all() else ice
             # separate baseflow for station S
-            b, KGEs = single(df[s], ice=ice, area=area, method=method, return_kge=return_kge)
+            b = single_station(df[s], ice=ice, area=area, method=method)
             # write into already created dataframe
             for m in method:
                 dfs[m].loc[b.index, s] = b[m]
-            if return_bfi:
-                df_bfi.loc[s] = b.sum() / df.loc[b.index, s].abs().sum()
-            if return_kge:
-                df_kge.loc[s] = KGEs
         except BaseException:
             pass
 
@@ -132,32 +117,15 @@ def mult_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=Fa
     if not isinstance(df.index, pd.DatetimeIndex):
         df.index = pd.to_datetime(df.index)
 
-    # thawed months from https://doi.org/10.5194/essd-9-133-2017
-    with np.load(Path(__file__).parent / 'thawed.npz') as f:
-        thawed = f['thawed']
-
     # create df to store baseflow
     method = format_method(method)
     dfs = {m: pd.DataFrame(np.nan, index=df.index, columns=df.columns, dtype=float)
            for m in method}
 
-    # create df to store BFI and KGE
-    if return_bfi:
-        df_bfi = pd.DataFrame(np.nan, index=df.columns, columns=method, dtype=float)
-    if return_kge:
-        df_kge = pd.DataFrame(np.nan, index=df.columns, columns=method, dtype=float)
-
     # run separation for each column
     for s in tqdm(df.columns, total=df.shape[1]):
         sep_work(s)
 
-    # return result
-    if return_bfi and return_kge:
-        return dfs, df_bfi, df_kge
-    if return_bfi and not return_kge:
-        return dfs, df_bfi
-    if not return_bfi and return_kge:
-        return dfs, df_kge
     return dfs
 
 def boughton(Q, a, C, initial_method='Q0', return_exceed=False):

@@ -4,7 +4,7 @@ nav:
   - Home: index.md
   - API:
       - Separation: api.md
-  - Instructions: instructions.md 
+  - Instructions: instructions.md
   
 plugins:
   - search

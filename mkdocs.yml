@@ -1,0 +1,47 @@
+site_name: baseflow
+deploy:
+  branch: merge-my-changes
+theme:
+  name: material
+  palette:
+    primary: cyan
+  features:
+    - content.code.copy
+    - content.code.select
+    - navigation.expand
+    - navigation.path
+    - navigation.footer
+    - toc.follow
+    - toc.integrate
+nav:
+  - Home: index.md
+  - API:
+      - Separation: api.md
+      - Utils: utils.md
+  - Instructions: instructions.md
+
+features:
+  - toc.integrate
+  - content.code.copy
+  - content.code.select
+  - navigation.expand
+  - navigation.path
+  - navigation.footer
+  
+plugins:
+  - search
+  - mkdocstrings:
+  - include-markdown:
+      comments: false
+
+markdown_extensions:
+  - admonition
+  - pymdownx.snippets
+  - pymdownx.details
+  - markdown_include.include:
+      base_path: docs
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

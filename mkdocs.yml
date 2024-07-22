@@ -23,10 +23,6 @@ features:
 plugins:
   - search
   - mkdocstrings:
-      handlers:
-        python:
-          options:
-            docstring_style: google
   - include-markdown:
       comments: false
 

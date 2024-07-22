@@ -1,10 +1,24 @@
 site_name: baseflow
-theme: material
+theme:
+  name: material
+  palette:
+    primary: cyan
+  features:
+    - content.code.copy
+    - content.code.select
+    - navigation.expand
+    - navigation.path
+    - navigation.footer
+    - toc.follow
+    - toc.integrate
 nav:
   - Home: index.md
   - API:
       - Separation: api.md
   - Instructions: instructions.md
+
+features:
+  - toc.integrate
   
 plugins:
   - search
@@ -13,3 +27,13 @@ plugins:
         python:
           options:
             docstring_style: google
+
+markdown_extensions:
+  - admonition
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

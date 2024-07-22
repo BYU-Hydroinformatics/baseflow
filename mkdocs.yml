@@ -30,7 +30,7 @@ features:
   
 plugins:
   - search
-  - mkdocstrings:
+  - mkdocstrings
   - include-markdown:
       comments: false
 

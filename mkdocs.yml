@@ -15,11 +15,16 @@ nav:
   - Home: index.md
   - API:
       - Separation: api.md
+      - Utils: utils.md
   - Instructions: instructions.md
 
 features:
   - toc.integrate
-
+  - content.code.copy
+  - content.code.select
+  - navigation.expand
+  - navigation.path
+  - navigation.footer
   
 plugins:
   - search

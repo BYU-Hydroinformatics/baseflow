@@ -19,6 +19,7 @@ nav:
 
 features:
   - toc.integrate
+
   
 plugins:
   - search
@@ -30,6 +31,8 @@ markdown_extensions:
   - admonition
   - pymdownx.snippets
   - pymdownx.details
+  - markdown_include.include:
+      base_path: docs
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

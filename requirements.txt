@@ -1,3 +1,7 @@
 numpy
 numba
 pandas
+mkdocs
+mkdocs-material
+pymdown-extensions
+markdown-include

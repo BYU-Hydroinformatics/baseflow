@@ -27,4 +27,9 @@ You can access the Colab notebook here:
     </a>
 </div>
 
+!!! note You may wish to make a copy of the notebook in your own Google Drive.
+
+
+!!! note Run each cell of the notebook by hitting the play button on the left side of each cell and provide the necessary inputs.The notebook is divided into multiple sections and each section contains a set of cells, each of which contains Python code. When you first launch the notebook, the sections are collapsed and you need to expand each section to view and run the code.
+
 We hope this notebook helps you understand how to effectively use the baseflow package for your baseflow separation needs.

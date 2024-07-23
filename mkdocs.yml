@@ -1,6 +1,5 @@
 site_name: baseflow
-deploy:
-  branch: merge-my-changes
+
 theme:
   name: material
   palette:

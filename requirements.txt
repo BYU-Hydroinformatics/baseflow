@@ -1,3 +1,7 @@
-mkdocstrings
-mkdocstrings-python
+numpy
+numba
+pandas
+mkdocs
 mkdocs-material
+pymdown-extensions
+markdown-include

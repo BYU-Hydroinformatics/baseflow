@@ -1,4 +1,6 @@
 site_name: baseflow
+site_url: https://github.com/BYU-Hydroinformatics/baseflow/blob/merge-my-changes/
+site_author: Xueyi Li
 
 theme:
   name: material

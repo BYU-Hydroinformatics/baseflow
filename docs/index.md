@@ -1,4 +1,4 @@
-# 🌟 BASEFLOW
+# 🌟 baseflow
 
 baseflow is a Python package that provides a collection of functions for baseflow separation, which is the process of separating the baseflow component from the total streamflow.
 

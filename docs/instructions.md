@@ -20,7 +20,7 @@ To help you get started with the baseflow package, we have created a Colab noteb
 - **Advanced Features**: Demonstrations of advanced features and customization options available in the baseflow package.
 - **Visualization**: Techniques for visualizing the results of baseflow separation using popular Python libraries such as Matplotlib.
 
-🔥 You can access the Colab notebook here: ⬇️
+🔥 You can access the Separation Colab notebook here: ⬇️
 <div class="colab-button">
     <a href="https://colab.research.google.com/drive/1xIAehOBByoT6phODrLNnME-u3S5A_DaF?usp=sharing" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
@@ -51,5 +51,15 @@ This section provides a step-by-step example of how to perform baseflow separati
 
  - Loading Data: Instructions on how to load streamflow data for a single station.
  - Applying Separation Methods: Applying the separation methods introduced in Part 1 to the loaded data.
- - Visualization: visualizing the baseflow separation results.
-We hope this notebook helps you understand how to effectively use the baseflow package for your baseflow separation needs.
+ Visualization: visualizing the baseflow separation results.
+
+### *Advanced Tutorial*
+#### Comparison
+This file implements the Kling-Gupta Efficiency (KGE) metric, which is used to evaluate hydrological models. It contains a function called 'kge' that calculates the KGE and its three components: correlation (r), variability ratio (α), and bias ratio (β).
+
+😁 You can access the Comparison Colab notebook here: ⬇️
+<div class="colab-button">
+    <a href="https://colab.research.google.com/drive/1AXUU_et1XUHmFh0HQOMHwxrroILg-Nlt?usp=sharing" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
+    </a>
+</div>

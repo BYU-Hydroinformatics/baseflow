@@ -1,9 +1,5 @@
 import numpy as np
 
-
-
-
-
 def KGE(simulations, evaluation):
     """Original Kling-Gupta Efficiency (KGE) and its three components
     (r, α, β) as per `Gupta et al., 2009

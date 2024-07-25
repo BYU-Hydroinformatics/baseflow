@@ -717,3 +717,223 @@ def willems(Q, a, w, initial_method='Q0', return_exceed=False):
             if return_exceed:
                 b[-1] += 1
     return b
+
+def strict_baseflow(Q, ice=None, quantile=0.9):
+    """
+    Identify the strict baseflow component of a flow time series.
+    
+    This function applies a series of heuristic rules to identify the strict baseflow
+    component of a flow time series. The rules are based on the behavior of the
+    derivative of the flow time series, as well as the magnitude of the flow values.
+    
+    The function returns a boolean mask indicating the time steps that correspond to
+    the strict baseflow component.
+    
+    Parameters:
+        Q (numpy.ndarray): The flow time series.
+        ice (numpy.ndarray, optional): A boolean mask indicating time steps with ice
+            conditions, which can invalidate the groundwater-baseflow relationship.
+        quantile (float, optional): The quantile value used to identify major events.
+            Default is 0.9 (90th percentile).
+    
+    Returns:
+        numpy.ndarray: A boolean mask indicating the time steps that correspond to
+            the strict baseflow component.
+    """
+    dQ = (Q[2:] - Q[:-2]) / 2
+
+    # 1. flow data associated with positive and zero values of dy / dt
+    wet1 = np.concatenate([[True], dQ >= 0, [True]])
+
+    # 2. previous 2 points before points with dy/dt≥0, as well as the next 3 points
+    idx_first = np.where(wet1[1:].astype(int) - wet1[:-1].astype(int) == 1)[0] + 1
+    idx_last = np.where(wet1[1:].astype(int) - wet1[:-1].astype(int) == -1)[0]
+    idx_before = np.repeat([idx_first], 2) - np.tile(range(1, 3), idx_first.shape)
+    idx_next = np.repeat([idx_last], 3) + np.tile(range(1, 4), idx_last.shape)
+    idx_remove = np.concatenate([idx_before, idx_next])
+    wet2 = np.full(Q.shape, False)
+    wet2[idx_remove.clip(min=0, max=Q.shape[0] - 1)] = True
+
+    # 3. five data points after major events (quantile)
+    growing = np.concatenate([[True], (Q[1:] - Q[:-1]) >= 0, [True]])
+    idx_major = np.where((Q >= np.quantile(Q, quantile)) & growing[:-1] & ~growing[1:])[0]
+    idx_after = np.repeat([idx_major], 5) + np.tile(range(1, 6), idx_major.shape)
+    wet3 = np.full(Q.shape, False)
+    wet3[idx_after.clip(min=0, max=Q.shape[0] - 1)] = True
+
+    # 4. flow data followed by a data point with a larger value of -dy / dt
+    wet4 = np.concatenate([[True], dQ[1:] - dQ[:-1] < 0, [True, True]])
+
+    # dry points, namely strict baseflow
+    dry = ~(wet1 + wet2 + wet3 + wet4)
+
+    # avoid ice conditions which invalidate the groundwater-baseflow relationship
+    if ice is not None:
+        dry[ice] = False
+
+    return dry
+
+import numpy as np
+from numba import njit, prange
+
+def bn77(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
+    """
+    Identifies the drought flow points in the discharge time series.
+    Cheng, Lei, Lu Zhang, and Wilfried Brutsaert. “Automated Selection of Pure Base Flows from Regular Daily Streamflow Data: Objective Algorithm.” Journal of Hydrologic Engineering 21, no. 11 (November 1, 2016): 06016008. https://doi.org/10.1061/(ASCE)HE.1943-5584.0001427.
+    
+    Args:
+        Q (numpy.ndarray): The discharge time series.
+        L_min (int): Minimum number of points to be eliminated at the beginning and end of recession episode.
+        snow_freeze_period (tuple): Start and end indices of the snow and/or freeze period.
+        observational_precision (float): Observational precision threshold.
+        quantile (float): Quanti le for identifying major events, default is 0.9.
+
+    Returns:
+        numpy.ndarray: The indices of the drought flow points.
+    """
+    # Step 1: Time series
+    S = estimate_recession_slope(Q)
+    
+    # Step 2: Recession episodes
+    recession_episodes = identify_recession_episodes(S, L_min)
+    
+    # Step 3: Drought flow points
+    drought_flow_points = eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, quantile)
+    
+    return drought_flow_points
+
+@njit
+# step 1
+def estimate_recession_slope(Q): # FIXME: fix the slopes of the first and the last timestamp
+    """
+    Estimates the recession slope S(t)
+    """
+    N = len(Q)
+    S = np.zeros(N)
+    for i in range(N-1):
+        if i == 0:
+            pass
+        else:
+            S[i] = (Q[i-1] - Q[i+1]) / 2
+    return S
+
+
+@njit
+# step 2
+def identify_recession_episodes(S, L_min):
+    """
+    Identifies the preliminary recession episodes.
+
+    Args:
+        S (numpy.ndarray): The recession slope time series.
+        L_min (int): Minimum length of a recession episode.
+
+    Returns:
+        list: A list of arrays, each containing the indices of a preliminary recession episode.
+    """
+    i = 0
+    N = len(S)
+    recession_episodes = []
+
+    while i < N - 1:
+        if S[i] <= 0 and S[i+1] > 0:
+            episode_start = i + 1 ##
+            l = 0
+            i=i+1 ##
+            # how many points's S > 0
+            while i < N - 1 and S[i] > 0:
+                i += 1
+                l += 1
+            if l >= L_min:
+                recession_episodes.append(np.arange(episode_start, i))
+            else:
+                i = i + l
+        else:
+            i += 1
+
+    return recession_episodes
+
+
+@njit
+# step 3
+def eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, S, quantile):
+    """
+    Eliminates the points at the beginning, end, and during the snow/freeze period, as well as anomalous and low-precision points.
+
+    Args:
+        recession_episodes (list): A list of arrays, each containing the indices of a preliminary recession episode.
+        L_min (int): Minimum number of points to be eliminated at the beginning and end of recession episode.
+        snow_freeze_period (tuple): Start and end indices of the snow and/or freeze period.
+        observational_precision (float): Observational precision threshold.
+        Q (numpy.ndarray): The discharge time series.
+        S (numpy.ndarray): The recession slope time series.
+        quantile (float): Quantile for identifying major events.
+
+    Returns:
+        numpy.ndarray: The indices of the drought flow points.
+    """
+    drought_flow_points = []
+    major_event_threshold = np.quantile(Q, quantile)
+
+    for episode in recession_episodes:
+        # Check the value of the first point in the episode
+        if Q[episode[0]] > major_event_threshold:
+            # C4: Remove the first three points if the first point's value is greater than the 90% quantile
+            if len(episode) > 3:
+                episode = episode[3:]
+            else:
+                continue  # Skip episodes that are too short
+        else:
+            # C3: Remove the first two points otherwise
+            if len(episode) > 2:
+                episode = episode[2:]
+            else:
+                continue  # Skip episodes that are too short
+
+        # C5: Remove the last point of each episode
+        if len(episode) > 1:
+            episode = episode[:-1]
+        else:
+            continue  # Skip episodes that are too short
+
+        # C6: Remove points where Si/Si-1 >= 2
+        if len(episode) > 1:
+            episode = episode[1:][S[episode[1:]] / S[episode[:-1]] < 2]
+
+        # C7: Remove points where Si < Si+1
+        if len(episode) > 1:
+            episode = episode[:-1][S[episode[:-1]] >= S[episode[1:]]]
+        
+        # C8: Eliminating the data points during the snow and/or freeze periods (i.e. C8)
+        episode = episode[(episode < snow_freeze_period[0]) | (episode > snow_freeze_period[1])]
+        
+        # C9: Eliminating the data points of which Q(t) are smaller than observational precision (i.e. C9)
+        episode = episode[Q[episode] >= observational_precision]
+        
+        drought_flow_points.append(episode)
+
+    return np.concatenate(drought_flow_points) if drought_flow_points else np.array([])
+
+# Example usage
+if __name__ == "__main__":
+    # Generate sample data
+    np.random.seed(42)
+    Q = np.random.rand(1000) * 100
+    
+    # Set parameters
+    L_min = 5
+    snow_freeze_period = (300, 400)
+    observational_precision = 0.1
+    quantile = 0.9
+    
+    # Estimate recession slope
+    S = estimate_recession_slope(Q)
+    
+    # Identify recession episodes
+    recession_episodes = identify_recession_episodes(S, L_min)
+    
+    # Eliminate points based on criteria
+    drought_points = eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, S, quantile)
+    
+    print(f"Number of drought flow points identified: {len(drought_points)}")
+    print(f"Indices of first 10 drought flow points: {drought_points[:10]}")

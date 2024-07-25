@@ -1,6 +1,6 @@
 import numpy as np
 
-def KGE(simulations, evaluation):
+def kge(simulations, evaluation):
     """Original Kling-Gupta Efficiency (KGE) and its three components
     (r, α, β) as per `Gupta et al., 2009
     <https://doi.org/10.1016/j.jhydrol.2009.08.003>`_.

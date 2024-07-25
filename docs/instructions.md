@@ -80,3 +80,8 @@ Overall, this file serves as **a collection of helper functions** that support v
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>
+
+#### Example on multiple stations
+The multi_station file takes a DataFrame containing flow data for multiple stations, and optionally a DataFrame with station information. The function allows for flexible application of various baseflow separation methods across multiple stations, streamlining the process of analyzing baseflow components in large-scale hydrological studies or regional assessments. This function enhances efficiency by applying the chosen separation method(s) to all stations in a single operation.
+
+(Still in progress)

@@ -63,3 +63,20 @@ This file implements the Kling-Gupta Efficiency (KGE) metric, which is used to e
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>
+
+#### Utils
+This utils file in the baseflow package contains several utility functions for processing and analyzing streamflow data. Here's a brief description of what the file does:
+
+ - It provides functions for cleaning and preprocessing streamflow time series data.
+ - It includes a function to check if a given date falls within an ice period.
+ - There's a function for calculating moving averages of data.
+ - The file includes a function for converting geographic coordinates to image coordinates.
+
+Overall, this file serves as **a collection of helper functions** that support various operations related to streamflow analysis, data cleaning, and coordinate transformations in the baseflow package.
+
+😊 You can access the Comparison Colab notebook here: ⬇️
+<div class="colab-button">
+    <a href="https://colab.research.google.com/drive/12YnNIvPYVyyt6G1PkbrKYXq0RoIZ3Bph?usp=sharing" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
+    </a>
+</div>

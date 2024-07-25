@@ -3,9 +3,8 @@ import pandas as pd
 from tqdm import tqdm
 from numba import njit, prange
 from pathlib import Path
-from baseflow.comparision import strict_baseflow, KGE
 from baseflow.utils import clean_streamflow, exist_ice, geo2imagexy, format_method
-from baseflow.param_estimate import recession_coefficient, param_calibrate, maxmium_BFI
+from baseflow.estimate import recession_coefficient, param_calibrate, maxmium_BFI
 
 
 def single_station(series, area=None, ice=None, method='all'):

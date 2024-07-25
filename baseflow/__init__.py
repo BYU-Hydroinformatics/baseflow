@@ -1,5 +1,5 @@
 from baseflow.separation import *
-from baseflow.param_estimate import *
+from baseflow.estimate import *
 from baseflow.comparision import *
 from baseflow.utils import *
 

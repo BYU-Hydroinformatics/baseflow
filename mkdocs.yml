@@ -15,7 +15,9 @@ nav:
   - Home: index.md
   - API:
       - Separation: api.md
+      - Estimate: estimate.md
   - Instructions: instructions.md
+  
 
 features:
   - toc.integrate

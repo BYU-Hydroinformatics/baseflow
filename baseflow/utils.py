@@ -49,19 +49,28 @@ def exist_ice(date, ice_period):
     return ice
 
 
-def moving_average(x, w):
-    """
-    Computes the moving average of the input array `x` using a window size of `w`.
-    
-    Args:
-        x (numpy.ndarray): The input array.
-        w (int): The window size for the moving average.
-    
-    Returns:
-        numpy.ndarray: The moving average of the input array `x`.
-    """
-    res = np.convolve(x, np.ones(w)) / w
-    return res[w - 1:-w + 1]
+def moving_average(data, window_size):
+  """Calculates the moving average of a list.
+
+  Args:
+    data: A list of numbers.
+    window_size: The size of the moving window.
+
+  Returns:
+    A list of the moving averages.
+  """
+
+  if len(data) < window_size:
+    raise ValueError("Window size must be less than or equal to the length of the data.")
+
+  moving_averages = []
+  for i in range(len(data) - window_size + 1):
+    window = data[i: i + window_size]
+    average = sum(window) / window_size
+    moving_averages.append(average)
+
+  return moving_averages
+
 
 
 @njit

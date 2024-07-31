@@ -20,13 +20,6 @@ To help you get started with the baseflow package, we have created a Colab noteb
 - **Advanced Features**: Demonstrations of advanced features and customization options available in the baseflow package.
 - **Visualization**: Techniques for visualizing the results of baseflow separation using popular Python libraries such as Matplotlib.
 
-🔥 You can access the Separation Colab notebook here: ⬇️
-<div class="colab-button">
-    <a href="https://colab.research.google.com/drive/1xIAehOBByoT6phODrLNnME-u3S5A_DaF?usp=sharing" target="_blank">
-        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
-    </a>
-</div>
-
 ???+ note
 
     You may wish to make a copy of the notebook in your own Google Drive.
@@ -38,6 +31,12 @@ To help you get started with the baseflow package, we have created a Colab noteb
     The notebook is divided into multiple sections and each section contains a set of cells, each of which contains Python code. When you first launch the notebook, the sections are collapsed and you need to expand each section to view and run the code.
 
 #### Part 1: Separation Methods
+🔥 Check out the Separation Methods Colab notebook: ⬇️
+<div class="colab-button">
+    <a href="https://colab.research.google.com/drive/1xIAehOBByoT6phODrLNnME-u3S5A_DaF?usp=sharing" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
+    </a>
+</div>
 
 In this section, we will introduce the different methods available in the baseflow package for performing baseflow separation:
 
@@ -46,7 +45,12 @@ In this section, we will introduce the different methods available in the basefl
  - Code Examples: Python code snippets demonstrating how to apply each method using the baseflow package.
 
 #### Part 2: Example on a Single Station
-
+🔥 Single Station Example Colab notebook: ⬇️
+<div class="colab-button">
+    <a href="https://colab.research.google.com/drive/1AXUU_et1XUHmFh0HQOMHwxrroILg-Nlt?usp=sharing" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
+    </a>
+</div>
 This section provides a step-by-step example of how to perform baseflow separation on data from a single hydrological station. We will use sample data to demonstrate the process, from loading the data to visualizing the results.
 
  - Loading Data: Instructions on how to load streamflow data for a single station.
@@ -57,14 +61,15 @@ This section provides a step-by-step example of how to perform baseflow separati
 #### Comparison
 This file implements the Kling-Gupta Efficiency (KGE) metric, which is used to evaluate hydrological models. It contains a function called 'kge' that calculates the KGE and its three components: correlation (r), variability ratio (α), and bias ratio (β).
 
-😁 You can access the Comparison Colab notebook here: ⬇️
+
+#### Utils
+🔥 Access the Comparison Colab notebook here: ⬇️
 <div class="colab-button">
-    <a href="https://colab.research.google.com/drive/1AXUU_et1XUHmFh0HQOMHwxrroILg-Nlt?usp=sharing" target="_blank">
+    <a href="https://colab.research.google.com/drive/12YnNIvPYVyyt6G1PkbrKYXq0RoIZ3Bph?usp=sharing" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>
 
-#### Utils
 This utils file in the baseflow package contains several utility functions for processing and analyzing streamflow data. Here's a brief description of what the file does:
 
  - It provides functions for cleaning and preprocessing streamflow time series data.
@@ -74,14 +79,10 @@ This utils file in the baseflow package contains several utility functions for p
 
 Overall, this file serves as **a collection of helper functions** that support various operations related to streamflow analysis, data cleaning, and coordinate transformations in the baseflow package.
 
-😊 You can access the Comparison Colab notebook here: ⬇️
-<div class="colab-button">
-    <a href="https://colab.research.google.com/drive/12YnNIvPYVyyt6G1PkbrKYXq0RoIZ3Bph?usp=sharing" target="_blank">
-        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
-    </a>
-</div>
-
 #### Example on multiple stations
+🔥 Multiple Stations Example Colab notebook: ⬇️
+
+
 The multi_station file takes a DataFrame containing flow data for multiple stations, and optionally a DataFrame with station information. The function allows for flexible application of various baseflow separation methods across multiple stations, streamlining the process of analyzing baseflow components in large-scale hydrological studies or regional assessments. This function enhances efficiency by applying the chosen separation method(s) to all stations in a single operation.
 
 (Still in progress)

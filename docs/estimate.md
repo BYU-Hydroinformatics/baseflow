@@ -1,7 +1,5 @@
 # API Reference
 
-## Esitmate Module
-
 ::: baseflow.estimate
     handler: python
     rendering:

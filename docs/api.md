@@ -3,6 +3,7 @@
 
 ::: baseflow.separation
     handler: python
-    rendering:
-      show_root_toc_entry: false
-
+    options:
+      members_order: source
+      show_root_heading: false
+      show_source: true

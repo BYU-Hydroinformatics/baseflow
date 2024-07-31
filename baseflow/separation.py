@@ -791,19 +791,19 @@ def bn77(Q, L_min, snow_freeze_period, observational_precision, quantile=0.9):
         numpy.ndarray: The indices of the drought flow points.
     """
     # Step 1: Time series
-    S = estimate_recession_slope(Q)
+    S = _estimate_recession_slope(Q)
     
     # Step 2: Recession episodes
-    recession_episodes = identify_recession_episodes(S, L_min)
+    recession_episodes = _identify_recession_episodes(S, L_min)
     
     # Step 3: Drought flow points
-    drought_flow_points = eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, quantile)
+    drought_flow_points = _eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, quantile)
     
     return drought_flow_points
 
 @njit
 # step 1
-def estimate_recession_slope(Q): # FIXME: fix the slopes of the first and the last timestamp
+def _estimate_recession_slope(Q): # FIXME: fix the slopes of the first and the last timestamp
     """
     Estimates the recession slope S(t)
     """
@@ -819,7 +819,7 @@ def estimate_recession_slope(Q): # FIXME: fix the slopes of the first and the la
 
 @njit
 # step 2
-def identify_recession_episodes(S, L_min):
+def _identify_recession_episodes(S, L_min):
     """
     Identifies the preliminary recession episodes.
 
@@ -855,7 +855,7 @@ def identify_recession_episodes(S, L_min):
 
 @njit
 # step 3
-def eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, S, quantile):
+def _eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, S, quantile):
     """
     Eliminates the points at the beginning, end, and during the snow/freeze period, as well as anomalous and low-precision points.
 

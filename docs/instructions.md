@@ -58,9 +58,6 @@ This section provides a step-by-step example of how to perform baseflow separati
  Visualization: visualizing the baseflow separation results.
 
 ### *Advanced Tutorial*
-#### Comparison
-This file implements the Kling-Gupta Efficiency (KGE) metric, which is used to evaluate hydrological models. It contains a function called 'kge' that calculates the KGE and its three components: correlation (r), variability ratio (α), and bias ratio (β).
-
 
 #### Utils
 🔥 Access the Comparison Colab notebook here: ⬇️

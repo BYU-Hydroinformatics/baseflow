@@ -772,6 +772,32 @@ def strict_baseflow(Q, ice=None, quantile=0.9):
 
     return dry
 
+@njit
+def backward(Q, b_LH, a):
+    """
+    Calculates the baseflow time series `b` from the discharge time series `Q` and the baseflow time series `b_LH` using a backward recursive approach.
+    
+    The function iterates through the discharge time series in reverse order, calculating the baseflow at each time step based on the baseflow at the next time step and the recession coefficient `a`. If the calculated baseflow exceeds the discharge at the current time step, the baseflow is set to the discharge.
+    
+    Args:
+        Q (numpy.ndarray): The discharge time series.
+        b_LH (numpy.ndarray): The baseflow time series.
+        a (float): The recession coefficient.
+    
+    Returns:
+        numpy.ndarray: The baseflow time series.
+    """
+    b = np.zeros(Q.shape[0])
+    b[-1] = b_LH[-1]
+    for i in range(Q.shape[0] - 1, 0, -1):
+        b[i - 1] = b[i] / a
+        if b[i] == 0:
+            b[i - 1] = Q[i - 1]
+        if b[i - 1] > Q[i - 1]:
+            b[i - 1] = Q[i - 1]
+    return b
+
+
 import numpy as np
 from numba import njit, prange
 
@@ -926,13 +952,13 @@ if __name__ == "__main__":
     quantile = 0.9
     
     # Estimate recession slope
-    S = estimate_recession_slope(Q)
+    S = _estimate_recession_slope(Q)
     
     # Identify recession episodes
-    recession_episodes = identify_recession_episodes(S, L_min)
+    recession_episodes = _identify_recession_episodes(S, L_min)
     
     # Eliminate points based on criteria
-    drought_points = eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, S, quantile)
+    drought_points = _eliminate_points(recession_episodes, L_min, snow_freeze_period, observational_precision, Q, S, quantile)
     
     print(f"Number of drought flow points identified: {len(drought_points)}")
     print(f"Indices of first 10 drought flow points: {drought_points[:10]}")

@@ -1,6 +1,7 @@
 import numpy as np
 from numba import njit, prange
 from baseflow.utils import moving_average, multi_arange
+from baseflow.separation import backward
 
 
 def recession_coefficient(Q, strict):
@@ -128,7 +129,7 @@ def maxmium_BFI(Q, b_LH, a, date=None):
     Returns:
         float: The maximum baseflow index.
     """
-    b = Backward(Q, b_LH, a)
+    b = backward(Q, b_LH, a)
 
     if date is None:
         idx_end = b.shape[0] // 365 * 365
@@ -148,27 +149,3 @@ def maxmium_BFI(Q, b_LH, a, date=None):
     return BFI_max
 
 
-@njit
-def Backward(Q, b_LH, a):
-    """
-    Calculates the baseflow time series `b` from the discharge time series `Q` and the baseflow time series `b_LH` using a backward recursive approach.
-    
-    The function iterates through the discharge time series in reverse order, calculating the baseflow at each time step based on the baseflow at the next time step and the recession coefficient `a`. If the calculated baseflow exceeds the discharge at the current time step, the baseflow is set to the discharge.
-    
-    Args:
-        Q (numpy.ndarray): The discharge time series.
-        b_LH (numpy.ndarray): The baseflow time series.
-        a (float): The recession coefficient.
-    
-    Returns:
-        numpy.ndarray: The baseflow time series.
-    """
-    b = np.zeros(Q.shape[0])
-    b[-1] = b_LH[-1]
-    for i in range(Q.shape[0] - 1, 0, -1):
-        b[i - 1] = b[i] / a
-        if b[i] == 0:
-            b[i - 1] = Q[i - 1]
-        if b[i - 1] > Q[i - 1]:
-            b[i - 1] = Q[i - 1]
-    return b

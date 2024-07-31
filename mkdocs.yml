@@ -16,6 +16,7 @@ nav:
   - API:
       - Separation: api.md
       - Estimate: estimate.md
+      - Utils: utils.md
   - Instructions: instructions.md
   
 

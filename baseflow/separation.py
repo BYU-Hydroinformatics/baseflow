@@ -18,7 +18,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
     if any(m in ['Chapman', 'CM', 'Boughton', 'Furey', 'Eckhardt', 'Willems'] for m in method):
         a = recession_coefficient(Q, strict)
 
-        b_LH = lh(Q)
+    b_LH = lh(Q)
     b = pd.DataFrame(np.nan, index=date, columns=method)
     for m in method:
         if m == 'UKIH':

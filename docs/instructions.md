@@ -51,7 +51,7 @@ In this section, we will introduce the different methods available in the basefl
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>
-This section provides a step-by-step example of how to perform baseflow separation on data from a single hydrological station. We will use sample data to demonstrate the process, from loading the data to visualizing the results.
+This section provides a step-by-step example of how to perform baseflow separation on data from a single hydrological station. We will use sample data to demonstrate the process, from loading the data to visualizing the results. 
 
  - Loading Data: Instructions on how to load streamflow data for a single station.
  - Applying Separation Methods: Applying the separation methods introduced in Part 1 to the loaded data.

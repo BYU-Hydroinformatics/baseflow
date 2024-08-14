@@ -1,5 +1,6 @@
 import numpy as np
 from numba import njit
+import matplotlib.pyplot as plt
 
 
 def clean_streamflow(series):
@@ -129,7 +130,6 @@ def format_method(method):
         method = [method]
     return method
 
-import numpy as np
 
 def kge(simulations, evaluation):
     """Original Kling-Gupta Efficiency (KGE) and its three components
@@ -198,9 +198,6 @@ def backward(Q, b_LH, a):
     return b
 
 
-import numpy as np
-import matplotlib.pyplot as plt
-
 def flow_duration_curve(Q, plot=True):
     """
     Calculate the Flow Duration Curve (FDC) and optionally plot it.
@@ -232,9 +229,9 @@ def flow_duration_curve(Q, plot=True):
     
     return percentiles, sorted_flows
 
-# Example usage
-Q = np.array([10, 20, 15, 5, 25, 30, 10])
-percentiles, flow_values = flow_duration_curve(Q)
+    # # Example usage
+    # Q = np.array([10, 20, 15, 5, 25, 30, 10])
+    # percentiles, flow_values = flow_duration_curve(Q)
 
-print("Percentiles:", percentiles)
-print("Flow values:", flow_values)
+    # print("Percentiles:", percentiles)
+    # print("Flow values:", flow_values)

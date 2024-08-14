@@ -1,4 +1,4 @@
-# API Reference
+# API Reference - Separation Module
 
 ::: baseflow.separation
     handler: python

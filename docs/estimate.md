@@ -1,4 +1,4 @@
-# API Reference
+# API Reference - Estimate Module
 
 ::: baseflow.estimate
     handler: python

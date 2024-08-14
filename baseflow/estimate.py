@@ -1,7 +1,7 @@
 import numpy as np
 from numba import njit, prange
 from baseflow.utils import moving_average, multi_arange
-from baseflow.separation import backward
+from baseflow.utils import backward
 
 
 def recession_coefficient(Q, strict):

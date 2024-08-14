@@ -21,47 +21,32 @@ methods (KGE) & compute strict baseflow
 
 ## Computation Process
 
+
 ```mermaid
----
-
-Title: Baseflow Package Process Diagram
-
----
-
 graph LR
 
     subgraph "Methods"
-
         methods["UKIH\nLocal\nFixed\nSlide\nLH\nChapman\nCM\nBoughton\nFurey\nEckhardt\nEWMA\nWillems"]
-
     end
 
     subgraph "Separation"
-
         separation["Compute Baseflow\nCompare Different Methods"]
-
     end
 
     subgraph "Param-Estimate"
-
         param_estimate["Estimate Recession Coefficient\nBackward and Calibration Approaches"]
-
     end
 
     subgraph "Comparison"
-
         comparison["Evaluation Criterion (KGE)\nCompute Strict Baseflow"]
-
     end
 
     subgraph "Utils"
-
         utils["Helper Functions"]
-
     end
 
-    Methods --> Separation
-    Param-Estimate --> Separation
-    Comparison --> Separation
-    Utils --> Separation
+    methods --> separation
+    param_estimate --> separation
+    comparison --> separation
+    utils --> separation
 ```

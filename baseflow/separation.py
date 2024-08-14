@@ -63,7 +63,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
             w = param_calibrate(np.arange(0.001, 1, 0.001), willems, Q, b_LH, a)
             b[m] = willems(Q, b_LH, a, w)
     if return_kge:
-        KGEs = pd.Series(KGE(b[strict].values, np.repeat(
+        KGEs = pd.Series(return_kge(b[strict].values, np.repeat(
             Q[strict], len(method)).reshape(-1, len(method))), index=b.columns)
         return b, KGEs
     else:

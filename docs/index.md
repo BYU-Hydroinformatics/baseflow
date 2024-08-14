@@ -6,18 +6,58 @@ This project is funded by [CIROH](https://ciroh.ua.edu/) and aims to extend the 
 
 🔥 **Our [GitHub](https://github.com/BYU-Hydroinformatics/baseflow/tree/merge-my-changes)** 🔥
 
+
+
 ## 🚀 Project Structure
 
-├── methods <- implements for 12 baseflow separation methods  
-│    
-├── separation <- compute baseflow and compare different separation methods  
-│    
-├── param_estimate <- estimates recession coefficient & backward and calibration approaches to estimate other parameters   
-│  
-├── comparison <- an evaluation criterion to compare different
-methods (KGE) & compute strict baseflow  
-│    
-└── utils <- helper functions
+```mermaid
+graph TB
+    style A fill:#f9f,stroke:#333,stroke-width:4px;
+    style B fill:#bbf,stroke:#333,stroke-width:2px;
+    style C fill:#bbf,stroke:#333,stroke-width:2px;
+    style D fill:#bbf,stroke:#333,stroke-width:2px;
+    style E fill:#bbf,stroke:#333,stroke-width:2px;
+    style F fill:#bbf,stroke:#333,stroke-width:2px;
+    style G fill:#bbf,stroke:#333,stroke-width:2px;
+    style H fill:#bbf,stroke:#333,stroke-width:2px;
+    style I fill:#bbf,stroke:#333,stroke-width:2px;
+    style J fill:#bbf,stroke:#333,stroke-width:2px;
+
+    A[baseflow] --> B[methods]
+    A --> C[separation]
+    A --> D[param_estimate]
+    A --> E[comparison]
+    A --> F[utils]
+    A --> G[docs]
+    A --> H[README.md]
+    A --> I[setup.py]
+    A --> J[requirements.txt]
+
+    B --> B1[Boughton.py]
+    B --> B2[Chapman.py]
+    B --> B3[CM.py]
+    B --> B4[Eckhardt.py]
+    B --> B5[EWMA.py]
+    B --> B6[Fixed.py]
+    B --> B7[Furey.py]
+    B --> B8[LH.py]
+    B --> B9[Local.py]
+    B --> B10[Slide.py]
+    B --> B11[UKIH.py]
+    B --> B12[Willems.py]
+
+    C --> C1[separation.py]
+
+    D --> D1[param_estimate.py]
+
+    E --> E1[comparison.py]
+
+    F --> F1[utils.py]
+
+    G --> G1[index.md]
+    G --> G2[instructions.md]
+
+```
 
 ## Computation Process
 

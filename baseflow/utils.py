@@ -49,28 +49,9 @@ def exist_ice(date, ice_period):
                ((date.month == end[0]) & (date.day <= end[1])))
     return ice
 
-
-def moving_average(data, window_size):
-  """Calculates the moving average of a list.
-
-  Args:
-    data: A list of numbers.
-    window_size: The size of the moving window.
-
-  Returns:
-    A list of the moving averages.
-  """
-
-  if len(data) < window_size:
-    raise ValueError("Window size must be less than or equal to the length of the data.")
-
-  moving_averages = []
-  for i in range(len(data) - window_size + 1):
-    window = data[i: i + window_size]
-    average = sum(window) / window_size
-    moving_averages.append(average)
-
-  return moving_averages
+def moving_average(x, w):
+    res = np.convolve(x, np.ones(w)) / w
+    return res[w - 1:-w + 1]
 
 
 

@@ -14,7 +14,7 @@ theme:
 nav:
   - Home: index.md
   - API:
-      - Separation: api.md
+      - Separation: separation.md
       - Estimate: estimate.md
       - Utils: utils.md
   - Instructions: instructions.md

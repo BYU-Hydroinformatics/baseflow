@@ -150,6 +150,3 @@ fig*.py
 main.py
 .env
 .autoenv
-
-read_npz.py
-.gitignore

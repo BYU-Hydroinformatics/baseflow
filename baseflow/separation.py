@@ -12,8 +12,8 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
     method = format_method(method)
 
     # convert ice_period ([11, 1], [3, 31]) to bool array
-    if not isinstance(ice, np.ndarray) or ice.shape[0] == 12:
-        ice = exist_ice(date, ice)
+    # if not isinstance(ice, np.ndarray) or ice.shape[0] == 12:
+    #     ice = exist_ice(date, ice)
     strict = strict_baseflow(Q, ice)
     if any(m in ['Chapman', 'CM', 'Boughton', 'Furey', 'Eckhardt', 'Willems'] for m in method):
         a = recession_coefficient(Q, strict)

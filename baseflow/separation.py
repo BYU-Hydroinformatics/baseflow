@@ -125,7 +125,8 @@ def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False
     return dfs
 
 def boughton(Q, a, C, initial_method='Q0', return_exceed=False):
-    """Boughton doulbe-parameter filter (Boughton, 2004)
+    """
+    Boughton doulbe-parameter filter (Boughton, 2004)
     Boughton W.C. (1993) - A hydrograph-based model for estimating water yield of ungauged catchments. Institute of Engineers Australia National Conference. Publ. 93/14, pp. 317-324.
     
     Args:
@@ -141,6 +142,9 @@ def boughton(Q, a, C, initial_method='Q0', return_exceed=False):
             Default is 'Q0'.
         return_exceed (bool, optional): if True, returns the number of times the
             baseflow exceeds the streamflow.
+
+    Returns:
+        b (np.array): baseflow
     """
     if return_exceed:
         b = np.zeros(Q.shape[0] + 1)
@@ -170,7 +174,8 @@ def boughton(Q, a, C, initial_method='Q0', return_exceed=False):
     return b
 
 def chapman_maxwell(Q, a, initial_method='Q0' , return_exceed=False):
-    """CM filter (Chapman & Maxwell, 1996)
+    """
+    CM filter (Chapman & Maxwell, 1996)
     Chapman, T. G., Maxwell, A. I. (1996) - Baseflow separation - comparison of numerical methods with tracer experiments, in Hydrol. and Water Resour. Symp., Institution of Engineers Australia, Hobart. pp. 539-545.
     
     Args:
@@ -183,6 +188,9 @@ def chapman_maxwell(Q, a, initial_method='Q0' , return_exceed=False):
             - 'LH': Calculate the initial baseflow value using the LH method.
             Alternatively, a float value can be oythoprovided to directly set the initial baseflow value.
             Default is 'Q0'.
+
+    Returns:
+        b (np.array): baseflow
     """
     if return_exceed:
         b = np.zeros(Q.shape[0] + 1)

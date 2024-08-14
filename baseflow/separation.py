@@ -8,6 +8,20 @@ from baseflow.estimate import recession_coefficient, param_calibrate, maxmium_BF
 
 
 def single(series, area=None, ice=None, method='all', return_kge=True):
+    """
+    Calculates baseflow on a single station using multiple methods.
+
+    Args:
+        series (pandas.Series): The streamflow time series to separate.
+        area (float): The area of the basin in km^2.
+        ice (numpy.ndarray): INSERT DESCRIPTION.
+        method (callable): The baseflow estimation method to use.
+        return_kge (bool): If True, returns the KGE values for each method.
+
+    Returns:
+        pandas.DataFrame: The baseflow time series for each method.
+        pandas.Series: The KGE values for each method.
+    """
     Q, date = clean_streamflow(series)
     method = format_method(method)
 
@@ -71,7 +85,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
 
 
 def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
-    # baseflow separation worker for single station
+    # baseflow separation for multiple stations
     def sep_work(s):
         try:
             # read area, longitude, latitude from df_sta

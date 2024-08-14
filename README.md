@@ -11,7 +11,7 @@ For detailed usage instructions and examples, please refer to the [📖 document
 ## ⚡ Usage
 
 ### Install
-```bash
+```bash 
 pip install baseflow
 ```
 

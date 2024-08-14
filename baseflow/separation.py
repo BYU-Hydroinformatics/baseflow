@@ -7,27 +7,7 @@ from baseflow.utils import clean_streamflow, exist_ice, geo2imagexy, format_meth
 from baseflow.estimate import recession_coefficient, param_calibrate, maxmium_BFI
 
 
-def single_station(series, area=None, ice=None, method='all'):
-    """
-    Perform baseflow separation on a given streamflow time series using various methods.
-    
-    Args:
-        series (pandas.Series): The streamflow time series to perform baseflow separation on.
-        area (float, optional): The drainage area of the streamflow station, used for some methods.
-        ice (numpy.ndarray or tuple, optional): A boolean array or a tuple of start and end months indicating the ice-affected period.
-        method (str or list, optional): The baseflow separation method(s) to use. Can be a single method name or a list of method names.
-            Accepted string values are:
-            - 'CM': Chapman and Manning (1985)
-            - 'Boughton': Boughton and Eckhardt (1987)
-            - 'Furey': Furey and Willems (1989)
-            - 'Willems': Willems (1991)
-            - 'UKIH': UKI-Hydro (2000)
-            - 'Local': Local method (2009)
-            - 'all': All methods.
-            Default is 'all'.
-    Returns:
-        pandas.DataFrame: A DataFrame containing the baseflow time series for each method.
-        """
+def single_station(series, area=None, ice=None, method='all', return_kge=True):
     Q, date = clean_streamflow(series)
     method = format_method(method)
 
@@ -83,7 +63,12 @@ def single_station(series, area=None, ice=None, method='all'):
             w = param_calibrate(np.arange(0.001, 1, 0.001), willems, Q, b_LH, a)
             b[m] = willems(Q, b_LH, a, w)
 
-        return b
+    if return_kge:
+        KGEs = pd.Series(return_kge(b[strict].values, np.repeat(
+            Q[strict], len(method)).reshape(-1, len(method))), index=b.columns)
+        return b, KGEs
+    else:
+        return b, None
 
 
 def multi_stations(df, df_sta=None, method='all'):

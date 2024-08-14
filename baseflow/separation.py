@@ -76,14 +76,14 @@ def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False
         try:
             # read area, longitude, latitude from df_sta
             area, ice = None, None
-            to_num = lambda col: (pd.to_numeric(df_sta.loc[s, col], errors='coerce')
-                                  if (df_sta is not None) and (col in df_sta.columns) else np.nan)
-            if np.isfinite(to_num('area')):
-                area = to_num('area')
-            if np.isfinite(to_num('lon')):
-                c, r = geo2imagexy(to_num('lon'), to_num('lat'))
-                ice = ~thawed[:, r, c]
-                ice = ([11, 1], [3, 31]) if ice.all() else ice
+            # to_num = lambda col: (pd.to_numeric(df_sta.loc[s, col], errors='coerce')
+            #                       if (df_sta is not None) and (col in df_sta.columns) else np.nan)
+            # if np.isfinite(to_num('area')):
+            #     area = to_num('area')
+            # if np.isfinite(to_num('lon')):
+            #     c, r = geo2imagexy(to_num('lon'), to_num('lat'))
+            #     ice = ~thawed[:, r, c]
+            #     ice = ([11, 1], [3, 31]) if ice.all() else ice
             # separate baseflow for station S
             b, KGEs = single(df[s], ice=ice, area=area, method=method, return_kge=return_kge)
             # write into already created dataframe

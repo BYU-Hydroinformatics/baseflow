@@ -37,7 +37,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
             b[m] = b_LH
 
         if m == 'Chapman':
-            b[m] = chapman(Q, b_LH, a)
+            b[m] = chapman(Q, a)
 
         if m == 'CM':
             b[m] = chapman_maxwell(Q, b_LH, a)

@@ -7,7 +7,7 @@ from baseflow.utils import clean_streamflow, exist_ice, geo2imagexy, format_meth
 from baseflow.estimate import recession_coefficient, param_calibrate, maxmium_BFI
 
 
-def single_station(series, area=None, ice=None, method='all', return_kge=True):
+def single(series, area=None, ice=None, method='all', return_kge=True):
     Q, date = clean_streamflow(series)
     method = format_method(method)
 
@@ -18,82 +18,82 @@ def single_station(series, area=None, ice=None, method='all', return_kge=True):
     if any(m in ['Chapman', 'CM', 'Boughton', 'Furey', 'Eckhardt', 'Willems'] for m in method):
         a = recession_coefficient(Q, strict)
 
-    b_LH = lh(Q)
+    b_LH = LH(Q)
     b = pd.DataFrame(np.nan, index=date, columns=method)
     for m in method:
         if m == 'UKIH':
-            b[m] = ukih(Q, b_LH)
+            b[m] = UKIH(Q, b_LH)
 
         if m == 'Local':
-            b[m] = local(Q, b_LH, area)
+            b[m] = Local(Q, b_LH, area)
 
         if m == 'Fixed':
-            b[m] = fixed(Q, area)
+            b[m] = Fixed(Q, area)
 
         if m == 'Slide':
-            b[m] = slide(Q, area)
+            b[m] = Slide(Q, area)
 
         if m == 'LH':
             b[m] = b_LH
 
         if m == 'Chapman':
-            b[m] = chapman(Q, b_LH, a)
+            b[m] = Chapman(Q, b_LH, a)
 
         if m == 'CM':
-            b[m] = chapman_maxwell(Q, b_LH, a)
+            b[m] = CM(Q, b_LH, a)
 
         if m == 'Boughton':
-            C = param_calibrate(np.arange(0.0001, 0.1, 0.0001), boughton, Q, b_LH, a)
-            b[m] = boughton(Q, b_LH, a, C)
+            C = param_calibrate(np.arange(0.0001, 0.1, 0.0001), Boughton, Q, b_LH, a)
+            b[m] = Boughton(Q, b_LH, a, C)
 
         if m == 'Furey':
-            A = param_calibrate(np.arange(0.01, 10, 0.01), furey, Q, b_LH, a)
-            b[m] = furey(Q, b_LH, a, A)
+            A = param_calibrate(np.arange(0.01, 10, 0.01), Furey, Q, b_LH, a)
+            b[m] = Furey(Q, b_LH, a, A)
 
         if m == 'Eckhardt':
             # BFImax = maxmium_BFI(Q, b_LH, a, date)
-            BFImax = param_calibrate(np.arange(0.001, 1, 0.001), eckhardt, Q, b_LH, a)
-            b[m] = eckhardt(Q, b_LH, a, BFImax)
+            BFImax = param_calibrate(np.arange(0.001, 1, 0.001), Eckhardt, Q, b_LH, a)
+            b[m] = Eckhardt(Q, b_LH, a, BFImax)
 
         if m == 'EWMA':
-            e = param_calibrate(np.arange(0.0001, 0.1, 0.0001), ewma, Q, b_LH, 0)
-            b[m] = ewma(Q, b_LH, 0, e)
+            e = param_calibrate(np.arange(0.0001, 0.1, 0.0001), EWMA, Q, b_LH, 0)
+            b[m] = EWMA(Q, b_LH, 0, e)
 
         if m == 'Willems':
-            w = param_calibrate(np.arange(0.001, 1, 0.001), willems, Q, b_LH, a)
-            b[m] = willems(Q, b_LH, a, w)
+            w = param_calibrate(np.arange(0.001, 1, 0.001), Willems, Q, b_LH, a)
+            b[m] = Willems(Q, b_LH, a, w)
 
     if return_kge:
-        KGEs = pd.Series(return_kge(b[strict].values, np.repeat(
+        KGEs = pd.Series(KGE(b[strict].values, np.repeat(
             Q[strict], len(method)).reshape(-1, len(method))), index=b.columns)
         return b, KGEs
     else:
         return b, None
 
 
-def multi_stations(df, df_sta=None, method='all'):
-    # baseflow separation worker for multiple stations
-
+def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
+    # baseflow separation worker for single station
     def sep_work(s):
-        """
-        Performs baseflow separation for a single station.
-        
-        Args:
-            s (str): The station ID.
-            df (pd.DataFrame): The input data frame containing the time series data.
-            df_sta (pd.DataFrame, optional): A data frame containing station metadata, such as area and coordinates.
-            method (str or list, optional): The baseflow separation method(s) to use. Defaults to 'all'.
-
-        Returns:
-            dict: A dictionary of baseflow time series, where the keys are the method names.
-        """
         try:
+            # read area, longitude, latitude from df_sta
             area, ice = None, None
+            to_num = lambda col: (pd.to_numeric(df_sta.loc[s, col], errors='coerce')
+                                  if (df_sta is not None) and (col in df_sta.columns) else np.nan)
+            if np.isfinite(to_num('area')):
+                area = to_num('area')
+            if np.isfinite(to_num('lon')):
+                c, r = geo2imagexy(to_num('lon'), to_num('lat'))
+                ice = ~thawed[:, r, c]
+                ice = ([11, 1], [3, 31]) if ice.all() else ice
             # separate baseflow for station S
-            b = single_station(df[s], ice=ice, area=area, method=method)
+            b, KGEs = single(df[s], ice=ice, area=area, method=method, return_kge=return_kge)
             # write into already created dataframe
             for m in method:
                 dfs[m].loc[b.index, s] = b[m]
+            if return_bfi:
+                df_bfi.loc[s] = b.sum() / df.loc[b.index, s].abs().sum()
+            if return_kge:
+                df_kge.loc[s] = KGEs
         except BaseException:
             pass
 
@@ -106,10 +106,23 @@ def multi_stations(df, df_sta=None, method='all'):
     dfs = {m: pd.DataFrame(np.nan, index=df.index, columns=df.columns, dtype=float)
            for m in method}
 
+    # create df to store BFI and KGE
+    if return_bfi:
+        df_bfi = pd.DataFrame(np.nan, index=df.columns, columns=method, dtype=float)
+    if return_kge:
+        df_kge = pd.DataFrame(np.nan, index=df.columns, columns=method, dtype=float)
+
     # run separation for each column
     for s in tqdm(df.columns, total=df.shape[1]):
         sep_work(s)
 
+    # return result
+    if return_bfi and return_kge:
+        return dfs, df_bfi, df_kge
+    if return_bfi and not return_kge:
+        return dfs, df_bfi
+    if not return_bfi and return_kge:
+        return dfs, df_kge
     return dfs
 
 def boughton(Q, a, C, initial_method='Q0', return_exceed=False):

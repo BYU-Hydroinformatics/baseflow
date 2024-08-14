@@ -18,51 +18,50 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
     if any(m in ['Chapman', 'CM', 'Boughton', 'Furey', 'Eckhardt', 'Willems'] for m in method):
         a = recession_coefficient(Q, strict)
 
-    b_LH = LH(Q)
+        b_LH = lh(Q)
     b = pd.DataFrame(np.nan, index=date, columns=method)
     for m in method:
         if m == 'UKIH':
-            b[m] = UKIH(Q, b_LH)
+            b[m] = ukih(Q, b_LH)
 
         if m == 'Local':
-            b[m] = Local(Q, b_LH, area)
+            b[m] = local(Q, b_LH, area)
 
         if m == 'Fixed':
-            b[m] = Fixed(Q, area)
+            b[m] = fixed(Q, area)
 
         if m == 'Slide':
-            b[m] = Slide(Q, area)
+            b[m] = slide(Q, area)
 
         if m == 'LH':
             b[m] = b_LH
 
         if m == 'Chapman':
-            b[m] = Chapman(Q, b_LH, a)
+            b[m] = chapman(Q, b_LH, a)
 
         if m == 'CM':
-            b[m] = CM(Q, b_LH, a)
+            b[m] = chapman_maxwell(Q, b_LH, a)
 
         if m == 'Boughton':
-            C = param_calibrate(np.arange(0.0001, 0.1, 0.0001), Boughton, Q, b_LH, a)
-            b[m] = Boughton(Q, b_LH, a, C)
+            C = param_calibrate(np.arange(0.0001, 0.1, 0.0001), boughton, Q, b_LH, a)
+            b[m] = boughton(Q, b_LH, a, C)
 
         if m == 'Furey':
-            A = param_calibrate(np.arange(0.01, 10, 0.01), Furey, Q, b_LH, a)
-            b[m] = Furey(Q, b_LH, a, A)
+            A = param_calibrate(np.arange(0.01, 10, 0.01), furey, Q, b_LH, a)
+            b[m] = furey(Q, b_LH, a, A)
 
         if m == 'Eckhardt':
             # BFImax = maxmium_BFI(Q, b_LH, a, date)
-            BFImax = param_calibrate(np.arange(0.001, 1, 0.001), Eckhardt, Q, b_LH, a)
-            b[m] = Eckhardt(Q, b_LH, a, BFImax)
+            BFImax = param_calibrate(np.arange(0.001, 1, 0.001), eckhardt, Q, b_LH, a)
+            b[m] = eckhardt(Q, b_LH, a, BFImax)
 
         if m == 'EWMA':
-            e = param_calibrate(np.arange(0.0001, 0.1, 0.0001), EWMA, Q, b_LH, 0)
-            b[m] = EWMA(Q, b_LH, 0, e)
+            e = param_calibrate(np.arange(0.0001, 0.1, 0.0001), ewma, Q, b_LH, 0)
+            b[m] = ewma(Q, b_LH, 0, e)
 
         if m == 'Willems':
-            w = param_calibrate(np.arange(0.001, 1, 0.001), Willems, Q, b_LH, a)
-            b[m] = Willems(Q, b_LH, a, w)
-
+            w = param_calibrate(np.arange(0.001, 1, 0.001), willems, Q, b_LH, a)
+            b[m] = willems(Q, b_LH, a, w)
     if return_kge:
         KGEs = pd.Series(KGE(b[strict].values, np.repeat(
             Q[strict], len(method)).reshape(-1, len(method))), index=b.columns)

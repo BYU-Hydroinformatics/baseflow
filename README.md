@@ -1,8 +1,4 @@
-<div align="center">
-
 # 🌟 baseflow
-
-</div>
 baseflow is a Python package that provides a collection of functions for baseflow separation, which is the process of separating the baseflow component from the total streamflow. 
 
 
@@ -12,17 +8,12 @@ This project is funded by [CIROH](https://ciroh.ua.edu/) and aims to extend the 
 
 For detailed usage instructions and examples, please refer to the [📖 documentation](https://baseflow.readthedocs.io/en/latest/)  🔥.
 
-<br>
-
-
-
-## ⚡&nbsp;&nbsp;Usage
+## ⚡ Usage
 
 ### Install
 ```bash
 pip install baseflow
 ```
-<br>
 
 
 ### Example
@@ -36,8 +27,6 @@ df_sta = pd.DataFrame(data=[[30, -28.4, 659], [-109.4, 33, 1611]],
 dfs, df_kge = baseflow.separation(df, df_sta, return_kge=True)
 print(f'Best Method:\n{df_kge.idxmax(axis=1)}')
 ```
-<br>
-
 
 
 ## 🚀 Project Structure
@@ -54,4 +43,3 @@ methods (KGE) & compute strict baseflow
 │    
 └── utils <- helper functions
 ```
-<br>

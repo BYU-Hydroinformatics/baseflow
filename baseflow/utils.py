@@ -196,3 +196,45 @@ def backward(Q, b_LH, a):
         if b[i - 1] > Q[i - 1]:
             b[i - 1] = Q[i - 1]
     return b
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def flow_duration_curve(Q, plot=True):
+    """
+    Calculate the Flow Duration Curve (FDC) and optionally plot it.
+
+    Parameters:
+    Q (numpy array): Streamflow data as a numpy array.
+    plot (bool): Whether to plot the FDC, default is True.
+
+    Returns:
+    percentiles (numpy array): The percentiles corresponding to streamflow.
+    flow_values (numpy array): The sorted streamflow values.
+    """
+    # Sort the streamflow data in descending order
+    sorted_flows = np.sort(Q)[::-1]
+    
+    # Calculate the percentiles
+    ranks = np.arange(1, len(sorted_flows) + 1)
+    percentiles = 100 * (ranks / (len(sorted_flows) + 1))
+    
+    # Plot the FDC if requested
+    if plot:
+        plt.figure(figsize=(10, 6))
+        plt.plot(percentiles, sorted_flows, marker='o', linestyle='-')
+        plt.xlabel('Percentile (%)')
+        plt.ylabel('Flow')
+        plt.title('Flow Duration Curve')
+        plt.grid(True)
+        plt.show()
+    
+    return percentiles, sorted_flows
+
+# Example usage
+Q = np.array([10, 20, 15, 5, 25, 30, 10])
+percentiles, flow_values = flow_duration_curve(Q)
+
+print("Percentiles:", percentiles)
+print("Flow values:", flow_values)

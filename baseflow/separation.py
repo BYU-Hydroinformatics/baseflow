@@ -22,7 +22,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
     b = pd.DataFrame(np.nan, index=date, columns=method)
     for m in method:
         if m == 'UKIH':
-            b[m] = ukih(Q, b_LH,return_exceed=False)
+            b[m] = ukih(Q, b_LH)
 
         if m == 'Local':
             b[m] = local(Q, b_LH, area)

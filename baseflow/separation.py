@@ -25,7 +25,7 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
             b[m] = ukih(Q, b_LH)
 
         if m == 'Local':
-            b[m] = local(Q, b_LH, area)
+            b[m] = local(Q, b_LH)
 
         if m == 'Fixed':
             b[m] = fixed(Q, area)
@@ -40,28 +40,28 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
             b[m] = chapman(Q, a)
 
         if m == 'CM':
-            b[m] = chapman_maxwell(Q, b_LH, a)
+            b[m] = chapman_maxwell(Q, a)
 
         if m == 'Boughton':
             C = param_calibrate(np.arange(0.0001, 0.1, 0.0001), boughton, Q, b_LH, a)
-            b[m] = boughton(Q, b_LH, a, C)
+            b[m] = boughton(Q, a, C)
 
         if m == 'Furey':
             A = param_calibrate(np.arange(0.01, 10, 0.01), furey, Q, b_LH, a)
-            b[m] = furey(Q, b_LH, a, A)
+            b[m] = furey(Q, a, A)
 
         if m == 'Eckhardt':
             # BFImax = maxmium_BFI(Q, b_LH, a, date)
             BFImax = param_calibrate(np.arange(0.001, 1, 0.001), eckhardt, Q, b_LH, a)
-            b[m] = eckhardt(Q, b_LH, a, BFImax)
+            b[m] = eckhardt(Q, a, BFImax)
 
         if m == 'EWMA':
             e = param_calibrate(np.arange(0.0001, 0.1, 0.0001), ewma, Q, b_LH, 0)
-            b[m] = ewma(Q, b_LH, 0, e)
+            b[m] = ewma(Q, e)
 
         if m == 'Willems':
             w = param_calibrate(np.arange(0.001, 1, 0.001), willems, Q, b_LH, a)
-            b[m] = willems(Q, b_LH, a, w)
+            b[m] = willems(Q, a, w)
     if return_kge:
         KGEs = pd.Series(return_kge(b[strict].values, np.repeat(
             Q[strict], len(method)).reshape(-1, len(method))), index=b.columns)

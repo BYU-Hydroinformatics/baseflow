@@ -1,5 +1,5 @@
 import numpy as np
-from numba import njit, prange
+from numba import prange
 from baseflow.utils import moving_average, multi_arange
 from baseflow.utils import backward
 
@@ -49,7 +49,6 @@ def param_calibrate(param_range, method, Q, b_LH, a):
     return param_calibrate_jit(param_range, method, Q, b_LH, a, idx_rec, idx_oth)
 
 
-# @njit(parallel=True)
 def param_calibrate_jit(param_range, method, Q, b_LH, a, idx_rec, idx_oth):
     """
     Calibrates the parameters for a baseflow estimation method using the Numba-accelerated `param_calibrate_jit` function.

@@ -37,7 +37,7 @@ To help you get started with the baseflow package, we have created a Colab noteb
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>
-
+ 
 In this section, we will introduce the different methods available in the baseflow package for performing baseflow separation:
 
  - Overview of the various algorithms and techniques implemented in the baseflow package.

@@ -100,6 +100,8 @@ def multi_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=F
         pandas.DataFrame: The baseflow index (BFI) for each station.
         pandas.Series: The KGE values for each method.
     """
+    print("multi_stations function loaded")
+    pass
     def sep_work(s):
         try:
             # read area, longitude, latitude from df_sta

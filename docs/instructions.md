@@ -47,7 +47,7 @@ In this section, we will introduce the different methods available in the basefl
 #### Part 2: Example on a Single Station
 🔥 Single Station Example Colab notebook: ⬇️
 <div class="colab-button">
-    <a href="https://colab.research.google.com/drive/1AXUU_et1XUHmFh0HQOMHwxrroILg-Nlt?usp=sharing" target="_blank">
+    <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_single_station.ipynb" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>

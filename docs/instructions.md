@@ -62,7 +62,7 @@ This section provides a step-by-step example of how to perform baseflow separati
 #### Utils
 🔥 Access the Comparison Colab notebook here: ⬇️
 <div class="colab-button">
-    <a href="https://colab.research.google.com/drive/12YnNIvPYVyyt6G1PkbrKYXq0RoIZ3Bph?usp=sharing" target="_blank">
+    <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_utils.ipynb" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>

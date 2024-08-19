@@ -84,8 +84,22 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
         return b, None
 
 
-def separation(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
-    # baseflow separation for multiple stations
+def multi_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
+    """
+    baseflow separation for multiple stations
+
+    Args:
+        df (pandas.DataFrame): The streamflow time series for multiple stations.
+        df_sta (pandas.DataFrame): The station information.
+        method (str or list): The baseflow estimation method to use.
+        return_bfi (bool): If True, returns the baseflow index (BFI) for each station.
+        return_kge (bool): If True, returns the KGE values for each method.
+    
+    Returns:
+        pandas.DataFrame: The baseflow time series for each method.
+        pandas.DataFrame: The baseflow index (BFI) for each station.
+        pandas.Series: The KGE values for each method.
+    """
     def sep_work(s):
         try:
             # read area, longitude, latitude from df_sta

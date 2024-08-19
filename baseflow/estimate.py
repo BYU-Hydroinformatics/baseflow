@@ -29,45 +29,21 @@ def recession_coefficient(Q, strict):
     return np.exp(-1 / K)
 
 
+# import numpy as np
+# from numba import prange
+# from baseflow.utils import moving_average, multi_arange
+# from baseflow.utils import backward
+
 def param_calibrate(param_range, method, Q, b_LH, a):
-    """
-    Calibrates the parameters for a baseflow estimation method.
-    
-    Args:
-        param_range (numpy.ndarray): The range of parameter values to test.
-        method (callable): The baseflow estimation method to use.
-        Q (numpy.ndarray): The discharge values.
-        b_LH (numpy.ndarray): The low-flow baseflow values.
-        a (float): The parameter for the baseflow estimation method.
-    
-    Returns:
-        float: The optimal parameter value from the given range.
-    """
     idx_rec = recession_period(Q)
     idx_oth = np.full(Q.shape[0], True)
     idx_oth[idx_rec] = False
     return param_calibrate_jit(param_range, method, Q, b_LH, a, idx_rec, idx_oth)
 
-
 def param_calibrate_jit(param_range, method, Q, b_LH, a, idx_rec, idx_oth):
-    """
-    Calibrates the parameters for a baseflow estimation method using the Numba-accelerated `param_calibrate_jit` function.
-    
-    The function takes in the range of parameter values to test, the baseflow estimation method, the discharge values, the low-flow baseflow values, and the parameter for the baseflow estimation method. It then calculates the recession period indices and other indices, and uses the `param_calibrate_jit` function to find the optimal parameter value from the given range.
-    
-    Args:
-        param_range (numpy.ndarray): The range of parameter values to test.
-        method (callable): The baseflow estimation method to use.
-        Q (numpy.ndarray): The discharge values.
-        b_LH (numpy.ndarray): The low-flow baseflow values.
-        a (float): The parameter for the baseflow estimation method.
-    
-    Returns:
-        float: The optimal parameter value from the given range.
-    """
     logQ = np.log1p(Q)
     loss = np.zeros(param_range.shape)
-    for i in prange(param_range.shape[0]):
+    for i in range(param_range.shape[0]):  # Remove prange for now
         p = param_range[i]
         b_exceed = method(Q, b_LH, a, p, return_exceed=True)
         f_exd, logb = b_exceed[-1] / Q.shape[0], np.log1p(b_exceed[:-1])

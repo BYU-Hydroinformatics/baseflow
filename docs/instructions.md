@@ -33,7 +33,7 @@ To help you get started with the baseflow package, we have created a Colab noteb
 #### Part 1: Separation Methods
 🔥 Check out the Separation Methods Colab notebook: ⬇️
 <div class="colab-button">
-    <a href="https://colab.research.google.com/drive/1xIAehOBByoT6phODrLNnME-u3S5A_DaF?usp=sharing" target="_blank">
+    <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_separation_methods.ipynb" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
     </a>
 </div>

@@ -85,35 +85,19 @@ def single(series, area=None, ice=None, method='all', return_kge=True):
 
 
 def multi_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=False):
-    """
-    baseflow separation for multiple stations
-
-    Args:
-        df (pandas.DataFrame): The streamflow time series for multiple stations.
-        df_sta (pandas.DataFrame): The station information.
-        method (str or list): The baseflow estimation method to use.
-        return_bfi (bool): If True, returns the baseflow index (BFI) for each station.
-        return_kge (bool): If True, returns the KGE values for each method.
-    
-    Returns:
-        pandas.DataFrame: The baseflow time series for each method.
-        pandas.DataFrame: The baseflow index (BFI) for each station.
-        pandas.Series: The KGE values for each method.
-    """
-    print("multi_stations function loaded")
-    pass
+    # baseflow separation worker for single station
     def sep_work(s):
         try:
             # read area, longitude, latitude from df_sta
             area, ice = None, None
-            # to_num = lambda col: (pd.to_numeric(df_sta.loc[s, col], errors='coerce')
-            #                       if (df_sta is not None) and (col in df_sta.columns) else np.nan)
-            # if np.isfinite(to_num('area')):
-            #     area = to_num('area')
-            # if np.isfinite(to_num('lon')):
-            #     c, r = geo2imagexy(to_num('lon'), to_num('lat'))
-            #     ice = ~thawed[:, r, c]
-            #     ice = ([11, 1], [3, 31]) if ice.all() else ice
+            to_num = lambda col: (pd.to_numeric(df_sta.loc[s, col], errors='coerce')
+                                  if (df_sta is not None) and (col in df_sta.columns) else np.nan)
+            if np.isfinite(to_num('area')):
+                area = to_num('area')
+            if np.isfinite(to_num('lon')):
+                c, r = geo2imagexy(to_num('lon'), to_num('lat'))
+                # ice = ~thawed[:, r, c]
+                ice = ([11, 1], [3, 31]) if ice.all() else ice
             # separate baseflow for station S
             b, KGEs = single(df[s], ice=ice, area=area, method=method, return_kge=return_kge)
             # write into already created dataframe
@@ -129,6 +113,10 @@ def multi_stations(df, df_sta=None, method='all', return_bfi=False, return_kge=F
     # convert index to datetime
     if not isinstance(df.index, pd.DatetimeIndex):
         df.index = pd.to_datetime(df.index)
+
+    # # thawed months from https://doi.org/10.5194/essd-9-133-2017
+    # with np.load(Path(__file__).parent / 'thawed.npz') as f:
+    #     thawed = f['thawed']
 
     # create df to store baseflow
     method = format_method(method)

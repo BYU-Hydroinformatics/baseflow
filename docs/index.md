@@ -7,6 +7,10 @@ This project is funded by [CIROH](https://ciroh.ua.edu/) and aims to extend the 
 
 Our link: https://github.com/BYU-Hydroinformatics/baseflow/
 
+## Introduction to the BYU Hydroinformatics Lab
+The Brigham Young University [(BYU)] (https://www.byu.edu/) Hydroinformatics Lab (https://hydroinformatics.byu.edu/) is a dynamic research group within the Department of Civil and Construction Engineering. Our lab focuses on the integration of data science, informatics, and advanced computational techniques with traditional hydrology to address complex water-related challenges. By harnessing the power of big data, machine learning, and cloud computing, we aim to improve the understanding, management, and sustainability of water resources.
+
+At the BYU Hydroinformatics Lab, we are committed to advancing the field of hydrology through innovative research and the development of cutting-edge tools and technologies. Our interdisciplinary approach enables us to collaborate with experts in engineering, computer science, environmental science, and policy to tackle pressing issues such as climate change, water scarcity, and ecosystem preservation.
 
 
 ## Project Structure

@@ -31,7 +31,7 @@ To help you get started with the baseflow package, we have created a Colab noteb
     The notebook is divided into multiple sections and each section contains a set of cells, each of which contains Python code. When you first launch the notebook, the sections are collapsed and you need to expand each section to view and run the code.
 
 #### Part 1: Separation Methods
-🔥 Check out the Separation Methods Colab notebook: ⬇️
+Check out the Separation Methods Colab notebook:
 <div class="colab-button">
     <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_separation_methods.ipynb" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
@@ -45,7 +45,7 @@ In this section, we will introduce the different methods available in the basefl
  - Code Examples: Python code snippets demonstrating how to apply each method using the baseflow package.
 
 #### Part 2: Example on a Single Station
-🔥 Single Station Example Colab notebook: ⬇️
+Single Station Example Colab notebook:
 <div class="colab-button">
     <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_single_station.ipynb" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
@@ -60,7 +60,7 @@ This section provides a step-by-step example of how to perform baseflow separati
 ### *Advanced Tutorial*
 
 #### Utils
-🔥 Access the Comparison Colab notebook here: ⬇️
+Access the Comparison Colab notebook here:
 <div class="colab-button">
     <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_utils.ipynb" target="_blank">
         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"/>
@@ -77,7 +77,7 @@ This utils file in the baseflow package contains several utility functions for p
 Overall, this file serves as **a collection of helper functions** that support various operations related to streamflow analysis, data cleaning, and coordinate transformations in the baseflow package.
 
 #### Example on multiple stations
-🔥 Multiple Stations Example Colab notebook: ⬇️
+Multiple Stations Example Colab notebook:
 
 （coming soon）
 

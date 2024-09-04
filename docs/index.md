@@ -12,7 +12,16 @@ The ***[Brigham Young University](https://www.byu.edu/)*** (BYU) ***Hydroinforma
 
 At the BYU Hydroinformatics Lab, we are committed to advancing the field of hydrology through innovative research and the development of cutting-edge tools and technologies. Our interdisciplinary approach enables us to collaborate with experts in engineering, computer science, environmental science, and policy to tackle pressing issues such as climate change, water scarcity, and ecosystem preservation.
 
+## **Documentation Overview**
+The baseflow documentation provides comprehensive guides and examples to help you get started with baseflow separation. It includes:
 
+ - Modules: Detailed descriptions of the core modules (separation, estimate, utils) and their functions.
+ - API Reference: In-depth API documentation for all available methods and utilities.
+ - Examples/Notebooks: Interactive Colab notebooks demonstrating basic and advanced usage, including single and multiple station examples.
+ - Installation: Step-by-step instructions for installing the baseflow package and its dependencies.
+ - Tutorials: Practical tutorials on using the package for various baseflow separation tasks.
+
+Explore the documentation to leverage the full potential of the baseflow package!
 ## **Project Structure**
 
 ```mermaid
@@ -95,3 +104,4 @@ graph LR
     comparison --> separation
     utils --> separation
 ```
+

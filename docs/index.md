@@ -43,7 +43,6 @@ The baseflow documentation provides comprehensive guides and examples to help yo
  - Installation: Step-by-step instructions for installing the baseflow package and its dependencies.
  - Tutorials: Practical tutorials on using the package for various baseflow separation tasks.
 
-Explore the documentation to leverage the full potential of the baseflow package!
 ## **Project Structure**
 ```mermaid
 graph LR

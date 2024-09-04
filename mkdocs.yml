@@ -17,8 +17,8 @@ nav:
       - Separation: separation.md
       - Estimate: estimate.md
       - Utils: utils.md
-  - Reference: reference.md
-  - Instructions: instructions.md
+  - Getting Started: reference.md
+  - Tutorials: tutorials.md
   
 
 features:

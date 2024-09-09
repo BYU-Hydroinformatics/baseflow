@@ -45,43 +45,64 @@ The baseflow documentation provides comprehensive guides and examples to help yo
 
 ## **Project Structure**
 ```mermaid
+%%{init: {
+  'theme': 'base', 
+  'themeVariables': { 
+    'fontSize': '16px', 
+    'fontFamily': 'Arial'
+  },
+  'flowchart': {
+    'nodeSpacing': 15,
+    'rankSpacing': 30,
+    'curve': 'basis'
+  }
+}}%%
 graph LR
-    style A fill:#f9f,stroke:#333,stroke-width:2px;
-    style B fill:#bbf,stroke:#333,stroke-width:1px;
-    style C fill:#bbf,stroke:#333,stroke-width:1px;
-    style D fill:#bbf,stroke:#333,stroke-width:1px;
+    %% Define styles
+    classDef default fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef secondLevel fill:#bbf,stroke:#333,stroke-width:1px,font-size:14px;
+    classDef thirdLevel fill:#ddf,stroke:#333,stroke-width:1px,font-size:12px;
 
+    A[baseflow]:::default
+    B[separation]:::secondLevel
+    C[estimate]:::secondLevel
+    D[utils]:::secondLevel
 
-    A[baseflow] --> B[separation]
-    A --> C[estimate]
-    A --> D[utils]
+    A --> B
+    A --> C
+    A --> D
 
-
-    B --> B1[Boughton]
-    B --> B2[Chapman]
-    B --> B3[CM]
-    B --> B4[Eckhardt]
-    B --> B5[EWMA]
-    B --> B6[Fixed]
-    B --> B7[Furey]
-    B --> B8[LH]
-    B --> B9[Local]
-    B --> B10[Slide]
-    B --> B11[UKIH]
-    B --> B12[Willems]
+    B --> B1[Boughton]:::thirdLevel
+    B --> B2[Chapman]:::thirdLevel
+    B --> B3[CM]:::thirdLevel
+    B --> B4[Eckhardt]:::thirdLevel
+    B --> B5[EWMA]:::thirdLevel
+    B --> B6[Fixed]:::thirdLevel
+    B --> B7[Furey]:::thirdLevel
+    B --> B8[LH]:::thirdLevel
+    B --> B9[Local]:::thirdLevel
+    B --> B10[Slide]:::thirdLevel
+    B --> B11[UKIH]:::thirdLevel
+    B --> B12[Willems]:::thirdLevel
     
-    C --> C1[method_numba]
-    C --> C2[param_calibrate]
-    C --> C3[recession_period]
+    C --> C1[method_numba]:::thirdLevel
+    C --> C2[param_calibrate]:::thirdLevel
+    C --> C3[recession_period]:::thirdLevel
 
-    D --> D1[backward]
-    D --> D2[clean_streamflow]
-    D --> D3[exist_ice]
-    D --> D4[flow_duration_curve]
-    D --> D5[format_method]
-    D --> D6[geo2imagexy]
-    D --> D7[kge]
-    D --> D8[multi_arange]
+    D --> D1[backward]:::thirdLevel
+    D --> D2[clean_streamflow]:::thirdLevel
+    D --> D3[exist_ice]:::thirdLevel
+    D --> D4[flow_duration_curve]:::thirdLevel
+    D --> D5[format_method]:::thirdLevel
+    D --> D6[geo2imagexy]:::thirdLevel
+    D --> D7[kge]:::thirdLevel
+    D --> D8[multi_arange]:::thirdLevel
+
+    %% Custom styles for specific nodes
+    style A font-size:20px,font-weight:bold
+    style B font-weight:bold
+    style C font-weight:bold
+    style D font-weight:bold
 ```
 
 

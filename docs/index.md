@@ -73,7 +73,7 @@ graph LR
     A --> C
     A --> D
 
-    newLines["`bn77
+    newLines1["`bn77
     boughton
     chapman
     chapman_maxwell
@@ -90,20 +90,26 @@ graph LR
     ukih
     what
     willems`"]:::thirdLevel
-    B --> newLines
+    B --> newLines1
 
-    C --> C1[method_numba]:::thirdLevel
-    C --> C2[param_calibrate]:::thirdLevel
-    C --> C3[recession_period]:::thirdLevel
+    newLines2["`method_numba
+    param_calibrate
+    recession_period
+    `"]:::thirdLevel
+    C --> newLines2
+    
+    newLines3["`backward
+    clean_streamflow
+    recession_period
+    exist_ice
+    flow_duration_curve
+    format_method
+    geo2imagexy
+    kge
+    multi_arange
+    `"]:::thirdLevel
+    D --> newLines3
 
-    D --> D1[backward]:::thirdLevel
-    D --> D2[clean_streamflow]:::thirdLevel
-    D --> D3[exist_ice]:::thirdLevel
-    D --> D4[flow_duration_curve]:::thirdLevel
-    D --> D5[format_method]:::thirdLevel
-    D --> D6[geo2imagexy]:::thirdLevel
-    D --> D7[kge]:::thirdLevel
-    D --> D8[multi_arange]:::thirdLevel
 
     %% Custom styles for specific nodes
     style A font-size:20px,font-weight:bold

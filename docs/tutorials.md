@@ -49,7 +49,7 @@ This utils file in the baseflow package contains several utility functions for p
 
 Overall, this file serves as **a collection of helper functions** that support various operations related to streamflow analysis, data cleaning, and coordinate transformations in the baseflow package.
 
-### ***Example on a Single Station***
+### ***Example on a single station***
 Single Station Example Colab notebook:
 <div class="colab-button">
     <a href="https://colab.research.google.com/github/BYU-Hydroinformatics/baseflow-notebooks/blob/main/baseflow_single_station.ipynb" target="_blank">

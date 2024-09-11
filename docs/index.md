@@ -56,6 +56,7 @@ The baseflow documentation provides comprehensive guides and examples to help yo
     'rankSpacing': 30,
     'curve': 'basis'
   }
+  "flowchart": {"htmlLabels": false}
 }}%%
 graph LR
     %% Define styles
@@ -72,19 +73,25 @@ graph LR
     A --> C
     A --> D
 
-    B --> B1[Boughton]:::thirdLevel
-    B --> B2[Chapman]:::thirdLevel
-    B --> B3[CM]:::thirdLevel
-    B --> B4[Eckhardt]:::thirdLevel
-    B --> B5[EWMA]:::thirdLevel
-    B --> B6[Fixed]:::thirdLevel
-    B --> B7[Furey]:::thirdLevel
-    B --> B8[LH]:::thirdLevel
-    B --> B9[Local]:::thirdLevel
-    B --> B10[Slide]:::thirdLevel
-    B --> B11[UKIH]:::thirdLevel
-    B --> B12[Willems]:::thirdLevel
-    
+    newLines["`bn77
+    boughton
+    chapman
+    chapman_maxwell
+    eckhart
+    ewma
+    fixed
+    furey
+    hyd_run
+    lh
+    lh_multi
+    local
+    slide
+    strict_baseflow
+    ukih
+    what
+    willems`"]:::thirdLevel
+    B --> newLines
+
     C --> C1[method_numba]:::thirdLevel
     C --> C2[param_calibrate]:::thirdLevel
     C --> C3[recession_period]:::thirdLevel

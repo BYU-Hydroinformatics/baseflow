@@ -52,17 +52,17 @@ The baseflow documentation provides comprehensive guides and examples to help yo
     'fontFamily': 'Arial'
   },
   'flowchart': {
-    'nodeSpacing': 15,
-    'rankSpacing': 30,
+    'nodeSpacing': 25,
+    'rankSpacing': 25,
     'curve': 'basis'
   }
   "flowchart": {"htmlLabels": false}
 }}%%
 graph LR
     %% Define styles
-    classDef default fill:#76c7c0,stroke:#333,stroke-width:2px;
-    classDef secondLevel fill:#a0d9d2,stroke:#333,stroke-width:1px,font-size:14px;
-    classDef thirdLevel fill:#c7ebe9,stroke:#333,stroke-width:1px,font-size:12px;
+    classDef default fill:#22E7EF,stroke:#333,stroke-width:0px;
+    classDef secondLevel fill:#B2FFFF,stroke:#333,stroke-width:0px,font-size:16px;
+    classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:14px;
 
     A[baseflow]:::default
     B[separation]:::secondLevel

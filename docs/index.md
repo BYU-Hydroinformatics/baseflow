@@ -48,80 +48,54 @@ The baseflow documentation provides comprehensive guides and examples to help yo
 svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
 </style>
 ```mermaid
-
 %%{init: {
   'theme': 'base', 
   'themeVariables': { 
-    'fontSize': '16px', 
+    'fontSize': '14px',
     'fontFamily': 'Arial'
   },
   'flowchart': {
-    'nodeSpacing': 25,
-    'rankSpacing': 25,
+    'nodeSpacing': 20,
+    'rankSpacing': 35,
     'curve': 'basis'
   }
-  "flowchart": {"htmlLabels": false}
+  "flowchart": {"htmlLabels": true}
 }}%%
 graph LR
     %% Define styles
     classDef default fill:#22E7EF,stroke:#333,stroke-width:0px;
-    classDef secondLevel fill:#B2FFFF,stroke:#333,stroke-width:0px,font-size:16px;
+    classDef secondLevel fill:#B2FFFF,stroke:#333,stroke-width:0px,font-size:14px;
     classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:14px;
 
     A[baseflow]:::default
-    B[separation]:::secondLevel
-    C[estimate]:::secondLevel
-    D[utils]:::secondLevel
+    B[.&emsp;&emsp;separation&emsp;&emsp;.]:::secondLevel
+    C[.&emsp;&emsp;estimate&emsp;&emsp;.]:::secondLevel
+    D[.&emsp;&emsp;utils&emsp;&emsp;.]:::secondLevel
 
-    A --> B[.&emsp;&emsp;&emsp;separation&emsp;&emsp;&emsp;.]
-    A --> C[.&emsp;&emsp;&emsp;estimate&emsp;&emsp;&emsp;.]
-    A --> D[.&emsp;&emsp;&emsp;utils&emsp;&emsp;&emsp;.]
+    A --> B
+    A --> C
+    A --> D
 
-    newLines1["`bn77
-    boughton
-    chapman
-    chapman_maxwell
-    eckhart
-    ewma
-    fixed
-    furey
-    hyd_run
-    lh
-    lh_multi
-    local
-    slide
-    strict_baseflow
-    ukih
-    what
-    willems`"]:::thirdLevel
-    B --> newLines1
+    B --> NewLines1[".&emsp;&emsp;&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex;'>
+    <div style='margin-right: 25px;'>
+      bn77<br/>boughton<br/>chapman<br/>chapman_maxwell<br/>eckhart<br/>ewma<br/>fixed<br/>furey
+    </div>
+    <div>
+      hyd_run<br/>lh<br/>lh_multi<br/>local<br/>slide<br/>strict_baseflow<br/>ukih<br/>what<br/>willems
+    </div>
+    </div>&emsp;&emsp;&emsp;&emsp;"]:::thirdLevel
 
-    newLines2["`method_numba
-    param_calibrate
-    recession_period
-    `"]:::thirdLevel
-    C --> newLines2
+    NewLines2[".&emsp;&emsp;&emsp;&emsp;<div style='line-height: 1.7; padding: 10px;'>method_numba<br/>param_calibrate<br/>recession_period</div>&emsp;&emsp;&emsp;&emsp;"]:::thirdLevel
+    C --> NewLines2
     
-    newLines3["`backward
-    clean_streamflow
-    recession_period
-    exist_ice
-    flow_duration_curve
-    format_method
-    geo2imagexy
-    kge
-    multi_arange
-    `"]:::thirdLevel
-    D --> newLines3
-
+    NewLines3[".&emsp;&emsp;&emsp;&emsp;<div style='line-height: 1.7; padding: 10px;'>backward<br/>clean_streamflow<br/>recession_period<br/>exist_ice<br/>flow_duration_curve<br/>format_method<br/>geo2imagexy<br/>kge<br/>multi_arange</div>&emsp;&emsp;&emsp;&emsp;"]:::thirdLevel
+    D --> NewLines3
 
     %% Custom styles for specific nodes
-    style A font-size:20px,font-weight:bold,mainBkg:#005f73
+    style A font-size:18px,font-weight:bold,mainBkg:#005f73
     style B font-weight:bold
     style C font-weight:bold
     style D font-weight:bold
-    
-    classDef wide padding:100px
 ```
 
 

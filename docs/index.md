@@ -60,9 +60,9 @@ The baseflow documentation provides comprehensive guides and examples to help yo
 }}%%
 graph LR
     %% Define styles
-    classDef default fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef secondLevel fill:#bbf,stroke:#333,stroke-width:1px,font-size:14px;
-    classDef thirdLevel fill:#ddf,stroke:#333,stroke-width:1px,font-size:12px;
+    classDef default fill:#76c7c0,stroke:#333,stroke-width:2px;
+    classDef secondLevel fill:#a0d9d2,stroke:#333,stroke-width:1px,font-size:14px;
+    classDef thirdLevel fill:#c7ebe9,stroke:#333,stroke-width:1px,font-size:12px;
 
     A[baseflow]:::default
     B[separation]:::secondLevel
@@ -112,7 +112,7 @@ graph LR
 
 
     %% Custom styles for specific nodes
-    style A font-size:20px,font-weight:bold
+    style A font-size:20px,font-weight:bold,mainBkg:#005f73
     style B font-weight:bold
     style C font-weight:bold
     style D font-weight:bold

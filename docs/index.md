@@ -55,8 +55,8 @@ svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
     'fontFamily': 'Arial'
   },
   'flowchart': {
-    'nodeSpacing': 20,
-    'rankSpacing': 35,
+    'nodeSpacing': 30,
+    'rankSpacing': 40,
     'curve': 'basis'
   }
   "flowchart": {"htmlLabels": true}
@@ -65,7 +65,7 @@ graph LR
     %% Define styles
     classDef default fill:#22E7EF,stroke:#333,stroke-width:0px;
     classDef secondLevel fill:#B2FFFF,stroke:#333,stroke-width:0px,font-size:14px;
-    classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:14px;
+    classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:13px;
 
     A[baseflow]:::default
     B[.&emsp;&emsp;separation&emsp;&emsp;.]:::secondLevel
@@ -76,20 +76,20 @@ graph LR
     A --> C
     A --> D
 
-    B --> NewLines1[".&emsp;&emsp;&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex;'>
-    <div style='margin-right: 25px;'>
-      bn77<br/>boughton<br/>chapman<br/>chapman_maxwell<br/>eckhart<br/>ewma<br/>fixed<br/>furey
-    </div>
-    <div>
-      hyd_run<br/>lh<br/>lh_multi<br/>local<br/>slide<br/>strict_baseflow<br/>ukih<br/>what<br/>willems
-    </div>
-    </div>&emsp;&emsp;&emsp;&emsp;"]:::thirdLevel
+    B --> NewLines1[".&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
+    <div style='flex: 0 0 30%;'>bn77<br/>boughton<br/>chapman<br/>chapman_maxwell<br/>eckhart<br/>ewma</div>
+    <div style='flex: 0 0 30%;'>fixed<br/>furey<br/>hyd_run<br/>lh<br/>lh_multi<br/>local</div>
+    <div style='flex: 0 0 30%;'>slide<br/>strict_baseflow<br/>ukih<br/>what<br/>willems</div>
+    </div>&emsp;&emsp;"]:::thirdLevel
 
-    NewLines2[".&emsp;&emsp;&emsp;&emsp;<div style='line-height: 1.7; padding: 10px;'>method_numba<br/>param_calibrate<br/>recession_period</div>&emsp;&emsp;&emsp;&emsp;"]:::thirdLevel
-    C --> NewLines2
+    C --> NewLines2[".&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 200px;'>
+    <div style='flex: 0 0 100%;'>method_numba<br/>param_calibrate<br/>recession_period</div>
+    </div>&emsp;&emsp;"]:::thirdLevel
     
-    NewLines3[".&emsp;&emsp;&emsp;&emsp;<div style='line-height: 1.7; padding: 10px;'>backward<br/>clean_streamflow<br/>recession_period<br/>exist_ice<br/>flow_duration_curve<br/>format_method<br/>geo2imagexy<br/>kge<br/>multi_arange</div>&emsp;&emsp;&emsp;&emsp;"]:::thirdLevel
-    D --> NewLines3
+    D --> NewLines3[".&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
+    <div style='flex: 0 0 45%;'>backward<br/>clean_streamflow<br/>recession_period<br/>exist_ice<br/>flow_duration_curve</div>
+    <div style='flex: 0 0 45%;'>format_method<br/>geo2imagexy<br/>kge<br/>multi_arange</div>
+    </div>&emsp;&emsp;"]:::thirdLevel
 
     %% Custom styles for specific nodes
     style A font-size:18px,font-weight:bold,mainBkg:#005f73

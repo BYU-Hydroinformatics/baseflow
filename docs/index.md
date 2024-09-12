@@ -44,7 +44,11 @@ The baseflow documentation provides comprehensive guides and examples to help yo
  - Tutorials: Practical tutorials on using the package for various baseflow separation tasks.
 
 ## **Project Structure**
+<style>
+svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
+</style>
 ```mermaid
+
 %%{init: {
   'theme': 'base', 
   'themeVariables': { 
@@ -69,9 +73,9 @@ graph LR
     C[estimate]:::secondLevel
     D[utils]:::secondLevel
 
-    A --> B
-    A --> C
-    A --> D
+    A --> B[.&emsp;&emsp;&emsp;separation&emsp;&emsp;&emsp;.]
+    A --> C[.&emsp;&emsp;&emsp;estimate&emsp;&emsp;&emsp;.]
+    A --> D[.&emsp;&emsp;&emsp;utils&emsp;&emsp;&emsp;.]
 
     newLines1["`bn77
     boughton
@@ -116,6 +120,8 @@ graph LR
     style B font-weight:bold
     style C font-weight:bold
     style D font-weight:bold
+    
+    classDef wide padding:100px
 ```
 
 

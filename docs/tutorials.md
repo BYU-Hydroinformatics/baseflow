@@ -15,7 +15,7 @@ To help you get started with the baseflow package, we have created a Colab noteb
 
 ### ***Getting Started***
 
-#### Data Preparation
+**Data Preparation**
 
 In this section, we will guide you through the process of preparing your data for baseflow separation. There are two methods available for data preparation:
 

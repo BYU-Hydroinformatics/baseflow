@@ -42,11 +42,38 @@ Alternatively, you can use the USGS API to download streamflow data for a specif
 
 We provide an API that allows you to download streamflow data from the USGS (United States Geological Survey) for a specified station and time range.
 
-Parameters:
+Here's the core part of the code:
+```python
+station_number = '01636500'
+start_date = '2000-01-01'  # (YYYY-MM-DD)
+end_date = '2022-12-31'    # (YYYY-MM-DD)
 
-- **station_id:** The USGS station ID for the desired location.
-- **start_date:** The start date for the data in `YYYY-MM-DD` format.
-- **end_date:** The end date for the data in `YYYY-MM-DD` format.
+# Construct the URL
+section1 = 'https://nwis.waterdata.usgs.gov/nwis/dv?referred_module=sw&search_site_no='
+section2 = '&search_site_no_match_type=exact&site_tp_cd=OC&site_tp_cd=OC-CO&site_tp_cd=ES&site_tp_cd='\
+'LK&site_tp_cd=ST&site_tp_cd=ST-CA&site_tp_cd=ST-DCH&site_tp_cd=ST-TS&index_pmcode_00060=1&group_key='\
+'NONE&sitefile_output_format=html_table&column_name=agency_cd&column_name=site_no&column_name=station_nm&range_selection=date_range&begin_date='
+section3 = '&end_date='
+section4 = '&format=rdb&date_format=YYYY-MM-DD&rdb_compression=value&list_of_search_criteria=search_site_no%2Csite_tp_cd%2Crealtime_parameter_selection'
+
+link = (section1 + station_number + section2 + start_date + section3 + end_date + section4)
+
+# Download and decode the data
+USGS_page = urllib.request.urlopen(link)
+downloaded_data = USGS_page.read()
+str_data = downloaded_data.decode()
+```
+
+This code constructs a URL to access the USGS database, downloads the data, and decodes it for further processing. You can customize the `station_number`, `start_date`, and `end_date` variables to retrieve data for your specific needs. 
+
+To find station numbers, you can visit the USGS website: https://dashboard.waterdata.usgs.gov/app/nwd/en/. This tool will help you locate the appropriate station for your area of interest.
+
+
+
+The complete version of this code is available in the Examples section of our Colab notebook, where you can run and modify it interactively.
+
+
+
 
 ### ***Separation Methods***
 Check out the Separation Methods Colab notebook:

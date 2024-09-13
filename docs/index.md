@@ -63,7 +63,7 @@ svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
     'fontFamily': 'Arial'
   },
   'flowchart': {
-    'nodeSpacing': 30,
+    'nodeSpacing': 25,
     'rankSpacing': 30,
     'curve': 'basis'
   }
@@ -72,8 +72,8 @@ svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
 graph LR
     %% Define styles
     classDef default fill:#22E7EF,stroke:#333,stroke-width:0px;
-    classDef secondLevel fill:#B2FFFF,stroke:#333,stroke-width:0px,font-size:14px;
-    classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:13px;
+    classDef secondLevel fill:#B2FFFF,stroke:#333,stroke-width:0px,font-size:16px;
+    classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:14px;
 
     A[baseflow]:::default
     B[&emsp;&emsp;separation&emsp;&emsp;]:::secondLevel
@@ -94,7 +94,7 @@ graph LR
     <div style='flex: 0 0 100%;'>method_numba<br/>param_calibrate<br/>recession_period</div>
     </div>&emsp;&emsp;"]:::thirdLevel
     
-    D --> NewLines3["&emsp;&emsp;<div style='line-height: 1.5; padding: 8px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
+    D --> NewLines3["&emsp;&emsp;<div style='line-height: 1.5; padding: 4px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
     <div style='flex: 0 0 45%;'>backward<br/>clean_streamflow<br/>recession_period<br/>exist_ice<br/>flow_duration_curve</div>
     <div style='flex: 0 0 45%;'>format_method<br/>geo2imagexy<br/>kge<br/>multi_arange</div>
     </div>&emsp;&emsp;"]:::thirdLevel

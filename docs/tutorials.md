@@ -47,7 +47,8 @@ Here's the core part of the code:
 station_number = '01636500'
 start_date = '2000-01-01'  # (YYYY-MM-DD)
 end_date = '2022-12-31'    # (YYYY-MM-DD)
-
+```
+```python
 # Construct the URL
 section1 = 'https://nwis.waterdata.usgs.gov/nwis/dv?referred_module=sw&search_site_no='
 section2 = '&search_site_no_match_type=exact&site_tp_cd=OC&site_tp_cd=OC-CO&site_tp_cd=ES&site_tp_cd='\
@@ -57,7 +58,8 @@ section3 = '&end_date='
 section4 = '&format=rdb&date_format=YYYY-MM-DD&rdb_compression=value&list_of_search_criteria=search_site_no%2Csite_tp_cd%2Crealtime_parameter_selection'
 
 link = (section1 + station_number + section2 + start_date + section3 + end_date + section4)
-
+```
+```python
 # Download and decode the data
 USGS_page = urllib.request.urlopen(link)
 downloaded_data = USGS_page.read()

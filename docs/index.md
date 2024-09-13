@@ -56,7 +56,7 @@ svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
   },
   'flowchart': {
     'nodeSpacing': 30,
-    'rankSpacing': 35,
+    'rankSpacing': 30,
     'curve': 'basis'
   }
   "flowchart": {"htmlLabels": true}
@@ -68,25 +68,25 @@ graph LR
     classDef thirdLevel fill:#F0FFFF,stroke:#333,stroke-width:0px,font-size:13px;
 
     A[baseflow]:::default
-    B[.&emsp;&emsp;separation&emsp;&emsp;.]:::secondLevel
-    C[.&emsp;&emsp;estimate&emsp;&emsp;.]:::secondLevel
-    D[.&emsp;&emsp;utils&emsp;&emsp;.]:::secondLevel
+    B[&emsp;&emsp;separation&emsp;&emsp;]:::secondLevel
+    C[&emsp;&emsp;estimate&emsp;&emsp;]:::secondLevel
+    D[&emsp;&emsp;utils&emsp;&emsp;]:::secondLevel
 
     A --> B
     A --> C
     A --> D
 
-    B --> NewLines1[".&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
+    B --> NewLines1["&emsp;&emsp;<div style='line-height: 1.5; padding: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
     <div style='flex: 0 0 30%;'>bn77<br/>boughton<br/>chapman<br/>chapman_maxwell<br/>eckhart<br/>ewma</div>
     <div style='flex: 0 0 30%;'>fixed<br/>furey<br/>hyd_run<br/>lh<br/>lh_multi<br/>local</div>
     <div style='flex: 0 0 30%;'>slide<br/>strict_baseflow<br/>ukih<br/>what<br/>willems</div>
     </div>&emsp;&emsp;"]:::thirdLevel
 
-    C --> NewLines2[".&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 200px;'>
+    C --> NewLines2["&emsp;&emsp;<div style='line-height: 1.5; padding: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 200px;'>
     <div style='flex: 0 0 100%;'>method_numba<br/>param_calibrate<br/>recession_period</div>
     </div>&emsp;&emsp;"]:::thirdLevel
     
-    D --> NewLines3[".&emsp;&emsp;<div style='line-height: 1.5; padding: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
+    D --> NewLines3["&emsp;&emsp;<div style='line-height: 1.5; padding: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
     <div style='flex: 0 0 45%;'>backward<br/>clean_streamflow<br/>recession_period<br/>exist_ice<br/>flow_duration_curve</div>
     <div style='flex: 0 0 45%;'>format_method<br/>geo2imagexy<br/>kge<br/>multi_arange</div>
     </div>&emsp;&emsp;"]:::thirdLevel

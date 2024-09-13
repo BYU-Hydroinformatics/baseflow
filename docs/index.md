@@ -56,7 +56,7 @@ svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
   },
   'flowchart': {
     'nodeSpacing': 30,
-    'rankSpacing': 40,
+    'rankSpacing': 35,
     'curve': 'basis'
   }
   "flowchart": {"htmlLabels": true}

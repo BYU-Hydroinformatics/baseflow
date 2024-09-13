@@ -34,6 +34,14 @@ We aim to extend the functionality of the original baseflow package by adding ne
 - *Xie, J., Liu, X., Jasechko, S., Berghuijs, W. R., Wang, K., Liu, C., Reichstein, M., Jung, M., & Koirala, S. (2024). Majority of global river flow sustained by groundwater. Nature Geoscience, 17(8), 770–777. https://doi.org/10.1038/s41561-024-01483-5*
 - *Xie, J., Liu, X., Wang, K., Yang, T., Liang, K., & Liu, C. (2020). Evaluation of typical methods for baseflow separation in the contiguous United States. Journal of Hydrology, 583, 124628. https://doi.org/10.1016/j.jhydrol.2020.124628*
 
+## **Installation**
+
+This package is available on PyPI and can be easily installed using pip:
+
+```python
+pip install baseflow
+```
+
 ## **Documentation Overview**
 The baseflow documentation provides comprehensive guides and examples to help you get started with baseflow separation. It includes:
 

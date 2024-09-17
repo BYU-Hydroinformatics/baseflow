@@ -90,7 +90,7 @@ graph LR
     <div style='flex: 0 0 30%;'>slide<br/>strict_baseflow<br/>ukih<br/>what<br/>willems</div>
     </div>&emsp;&emsp;"]:::thirdLevel
 
-    C --> NewLines2["&emsp;&emsp;<div style='line-height: 1.5; padding: 12spx; display: flex; flex-wrap: wrap; justify-content: space-between; width: 200px;'>
+    C --> NewLines2["&emsp;&emsp;<div style='line-height: 1.5; padding: 5px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 200px;'>
     <div style='flex: 0 0 100%;'>method_numba<br/>param_calibrate<br/>recession_period</div>
     </div>&emsp;&emsp;"]:::thirdLevel
     

@@ -64,7 +64,7 @@ svg[id^="mermaid-"] { min-width: 200px; max-width: 500px; }
   },
   'flowchart': {
     'nodeSpacing': 25,
-    'rankSpacing': 30,
+    'rankSpacing': 25,
     'curve': 'basis'
   }
   "flowchart": {"htmlLabels": true}
@@ -94,7 +94,7 @@ graph LR
     <div style='flex: 0 0 100%;'>method_numba<br/>param_calibrate<br/>recession_period</div>
     </div>&emsp;&emsp;"]:::thirdLevel
     
-    D --> NewLines3["&emsp;&emsp;<div style='line-height: 1.5; padding: 4px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 400px;'>
+    D --> NewLines3["&emsp;&emsp;<div style='line-height: 1.5; padding: 2px; display: flex; flex-wrap: wrap; justify-content: space-between; width: 380px;'>
     <div style='flex: 0 0 45%;'>backward<br/>clean_streamflow<br/>recession_period<br/>exist_ice<br/>flow_duration_curve</div>
     <div style='flex: 0 0 45%;'>format_method<br/>geo2imagexy<br/>kge<br/>multi_arange</div>
     </div>&emsp;&emsp;"]:::thirdLevel

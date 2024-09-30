@@ -313,21 +313,18 @@ def hyd_run(streamflow, k=0.9, passes=4):
     """
     ???+note "Reference"
 
-        This code was written by Ali Javed and Scott Hamshaw as a python version of
+        - This code was written by Ali Javed and Scott Hamshaw as a python version of
         a baseflow separation function from the MATLAB HydRun toolbox:
+            * Hamshaw, Scott D., Donna M. Rizzo, Ali Javed, and Linh Nguyen. "Watershed data science at the event scale: Revealing insights in watershed function through analysis of concentration-discharge relationships." In AGU Fall Meeting Abstracts, vol. 2020, pp. H077-08. 2020.
 
-        Hamshaw, Scott D., Donna M. Rizzo, Ali Javed, and Linh Nguyen.
-        "Watershed data science at the event scale: Revealing insights in watershed
-        function through analysis of concentration-discharge relationships."
-        In AGU Fall Meeting Abstracts, vol. 2020, pp. H077-08. 2020.
-
-        Tang, Weigang, and Sean K. Carey. 2017. “Hyd R Un: A MATLAB Toolbox for
+        - HydRun:
+            * Tang, Weigang, and Sean K. Carey. 2017. “Hyd R Un: A MATLAB Toolbox for
         Rainfall–Runoff Analysis.” Hydrological Processes 31 (15): 2670–82.
-        https://doi.org/10.1002/hyp.11185.
+        https://doi.org/10.1002/hyp.11185.s
 
-        HydRun cites the baseflow separation function is adpoted from the R package
+        - HydRun cites the baseflow separation function is adpoted from the R package
         EcoHydRology, also citing the filter of Nathan and McMahon (1990):
-            Nathan, R. J., and T. A. McMahon. 1990. “Evaluation of Automated Techniques
+            * Nathan, R. J., and T. A. McMahon. 1990. “Evaluation of Automated Techniques
             for Base Flow and Recession Analyses.” Water Resources Research 26 (7):
             1465–73. https://doi.org/10.1029/WR026i007p01465.
 

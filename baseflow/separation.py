@@ -10,10 +10,20 @@ from baseflow.estimate import recession_coefficient, param_calibrate, maxmium_BF
 def boughton(Q, a, C, initial_method='Q0', return_exceed=False):
     """
     Boughton doulbe-parameter filter (Boughton, 2004)
-    ???+ Absract "Reference"
+
+    <style>
+    .custom-abstract {
+        font-size: 6px; /* Adjust this value to your desired font size */
+    }
+    </style>
+
+    <div class="custom-abstract">
+
+    ???+ Abstract "Reference"
 
         Boughton W.C. (1993) - A hydrograph-based model for estimating water yield of ungauged catchments. Institute of Engineers Australia National Conference. Publ. 93/14, pp. 317-324.
-    
+
+    </div>
     Args:
         Q (np.array): streamflow
         a (float): recession coefficient
@@ -308,7 +318,7 @@ def hyd_run(streamflow, k=0.9, passes=4):
         function through analysis of concentration-discharge relationships."
         In AGU Fall Meeting Abstracts, vol. 2020, pp. H077-08. 2020.
 
-    HydRun:
+    References:
         Tang, Weigang, and Sean K. Carey. 2017. “Hyd R Un: A MATLAB Toolbox for
         Rainfall–Runoff Analysis.” Hydrological Processes 31 (15): 2670–82.
         https://doi.org/10.1002/hyp.11185.
@@ -327,12 +337,14 @@ def hyd_run(streamflow, k=0.9, passes=4):
     Returns:
         numpy.ndarray: A numpy array of baseflow values.
 
-    Example:
+    ??? example
+        ```python
         >>> import numpy as np
         >>> streamflow = np.array([10, 15, 20, 18, 12])
         >>> baseflow = hyd_run(streamflow)
         >>> print(baseflow)
         [10.         10.90909091 13.27272727 15.18181818 14.36363636]
+        ```
     """
     # Convert to numpy array and handle NaN values
     Q = np.array(streamflow)
@@ -563,11 +575,10 @@ def what(streamflow, BFImax, alpha):
     Example:
         >>> import numpy as np
         >>> streamflow = np.array([10, 15, 20, 18, 12])
-        >>> baseflow, quickflow = what(streamflow, 0.8, 0.98)
+        >>> baseflow = hyd_run(streamflow)
         >>> print(baseflow)
-        [ 9.8         12.74        15.68        16.544       15.3712    ]
-        >>> print(quickflow)
-        [ 0.2          2.26         4.32         1.456       -3.3712    ]
+        [10.         10.90909091 13.27272727 15.18181818 14.36363636]
+
     """
     baseflow = np.zeros_like(streamflow)
 
